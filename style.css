@@ -1,0 +1,56 @@
+QWidget#window,Inserisci,QWidget#Modifica,QWidget#Ricerca,QWidget#About,QWidget#DurataTotale,QMessageBox{
+        background-color: #272727;
+}
+
+
+QLabel{
+        font-size:13px;
+}
+
+#titolo{
+        font-weight: bold;
+}
+
+QCheckBox{
+        color:white;
+}
+
+QListWidget{
+        border: 0px solid black;
+}
+
+QListWidget QLabel{
+        color:black;
+}
+
+QLineEdit {
+	border: 1px solid black;
+        padding: 2px 4px;
+}
+
+QLineEdit:focus {
+        border: 1px solid #008CBA;
+}
+
+QLineEdit#searchBar{
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 2px 4px;
+}
+
+QLineEdit#searchBar:focus {
+        border: 1px solid #008CBA;
+}
+
+QSpinBox{
+        padding: 2px 4px;
+}
+
+QPushButton#searchButton{
+        background-color: #90A9B7;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 3px 16px;
+        font-size:12px;
+}

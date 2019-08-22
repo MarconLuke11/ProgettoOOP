@@ -34,9 +34,12 @@ SOURCES += \
         modello/modello.cpp \
         modello/musica.cpp \
         modello/xml.cpp \
+        vista/about.cpp \
+        vista/duratatotale.cpp \
         vista/inserimento.cpp \
         vista/mainwindow.cpp \
-        vista/modifica.cpp
+        vista/modifica.cpp \
+        vista/ricerca.cpp
 
 HEADERS += \
         modello/container.h \
@@ -46,11 +49,17 @@ HEADERS += \
         modello/modello.h \
         modello/musica.h \
         modello/xml.h \
+        vista/about.h \
+        vista/duratatotale.h \
         vista/inserimento.h \
         vista/mainwindow.h \
-        vista/modifica.h
+        vista/modifica.h \
+        vista/ricerca.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    risorse.qrc

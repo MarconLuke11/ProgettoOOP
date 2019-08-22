@@ -24,6 +24,7 @@ public:
     int sizeModello() const;
     void saveToFile();
     void loadFromFile();
+    MediaItem* getItem(int);
 
 };
 

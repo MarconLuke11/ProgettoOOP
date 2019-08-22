@@ -36,7 +36,7 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setGenere(textValue.toStdString());
                             }
-                            if(reader.name() == "anno di distribuzione"){
+                            if(reader.name() == "annoDistribuzione"){
                                 const QString textValue = reader.readElementText();
                                 x->setAnno(textValue.toUInt());
                             }
@@ -52,11 +52,11 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setAutore(textValue.toStdString());
                             }
-                            if(reader.name() == "casa editrice"){
+                            if(reader.name() == "casaEditrice"){
                                 const QString textValue = reader.readElementText();
                                 x->setCasaEditrice(textValue.toStdString());
                             }
-                            if(reader.name() == "numero di pagine"){
+                            if(reader.name() == "numeroPagine"){
                                 const QString textValue = reader.readElementText();
                                 x->setPagine(textValue.toUInt());
                             }
@@ -77,7 +77,7 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setGenere(textValue.toStdString());
                             }
-                            if(reader.name() == "anno di distribuzione"){
+                            if(reader.name() == "annoDistribuzione"){
                                 const QString textValue = reader.readElementText();
                                 x->setAnno(textValue.toUInt());
                             }
@@ -114,7 +114,7 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setGenere(textValue.toStdString());
                             }
-                            if(reader.name() == "anno di distribuzione"){
+                            if(reader.name() == "annDistribuzione"){
                                 const QString textValue = reader.readElementText();
                                 x->setAnno(textValue.toUInt());
                             }
@@ -130,7 +130,7 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setArtista(textValue.toStdString());
                             }
-                            if(reader.name() == "numero di tracce"){
+                            if(reader.name() == "numeroTracce"){
                                 const QString textValue = reader.readElementText();
                                 x->setNumeroTracce(textValue.toUInt());
                             }
@@ -194,7 +194,7 @@ void xml::write(Container<MediaItem *> & lista) const
         writer.writeCharacters(QString::fromStdString(media->getGenere()));
         writer.writeEndElement();
 
-        writer.writeStartElement("anno di distribuzione");
+        writer.writeStartElement("annoDistribuzione");
         writer.writeCharacters(QString::number(media->getAnno()));
         writer.writeEndElement();
 
@@ -213,11 +213,11 @@ void xml::write(Container<MediaItem *> & lista) const
             writer.writeCharacters(QString::fromStdString((libro->getAutore())));
             writer.writeEndElement();
 
-            writer.writeStartElement("casa editrice");
+            writer.writeStartElement("casaEditrice");
             writer.writeCharacters(QString::fromStdString(libro->getCasaEditrice()));
             writer.writeEndElement();
 
-            writer.writeStartElement("numero di pagine");
+            writer.writeStartElement("numeroPagine");
             writer.writeCharacters(QString::number(libro->getPagine()));
             writer.writeEndElement();
         }
@@ -241,7 +241,7 @@ void xml::write(Container<MediaItem *> & lista) const
             writer.writeCharacters(QString::fromStdString(musica->getArtista()));
             writer.writeEndElement();
 
-            writer.writeStartElement("numero di tracce");
+            writer.writeStartElement("numeroTracce");
             writer.writeCharacters(QString::number(musica->getNumeroTracce()));
             writer.writeEndElement();
 

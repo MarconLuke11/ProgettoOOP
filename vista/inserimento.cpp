@@ -15,13 +15,13 @@
 #include <QComboBox>
 #include <QLabel>
 
-Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(m), scelta (new QComboBox(this)), titoloL (new QLabel ("Titolo: ",this)),
+Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(m), scelta (new QComboBox(this)), titoloL (new QLabel ("Titolo*: ",this)),
                          genereL (new QLabel ("Genere: ",this)), annoDistribuzioneL (new QLabel (QString::fromUtf8("Anno di distribuzione: "),this)), formatoL (new QLabel ("Formato: ",this)),
                          recensioneL (new QLabel ("Recensione: ",this)), autoreL (new QLabel ("Autore: ",this)),
                          casaEditriceL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
-                         registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
+                         registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film: ", this)),
                          artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-                         durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
+                         durataMusicaL(new QLabel("Durata musica: ", this)),
                          titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
                          annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
                          recensione (new QComboBox (this)), autore (new QLineEdit (this)),
@@ -29,22 +29,32 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
                          regista (new QLineEdit (this)), durataFilm (new QSpinBox (this)), artista (new QLineEdit (this)),
                          numeroTracce (new QSpinBox (this)), durataMusica (new QSpinBox (this))
 {
-    move(QApplication::desktop()->screen()->rect().center() - rect().center());
     setWindowTitle(tr("Inserimento"));
     setFixedSize(QSize(400,450));
     titolo->setMaximumWidth(150);
+    titolo->setPlaceholderText("Campo obbligatorio");
     genere->setMaximumWidth(150);
+    genere->setPlaceholderText("Es. Fantasy, Avventura, ecc.");
     annoDistribuzione->setMaximumWidth(150);
+    annoDistribuzione->setMaximum(2100);
     formato->setMaximumWidth(150);
+    formato->setPlaceholderText("Es. Digitale, DVD, CD, ecc.");
     recensione->setMaximumWidth(150);
     autore->setMaximumWidth(150);
     casaEditrice->setMaximumWidth(150);
     numeroPagine->setMaximumWidth(150);
+    numeroPagine->setMaximum(10000);
+    numeroPagine->setSuffix(" pagine");
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);
+    durataFilm->setMaximum(300);
+    durataFilm->setSuffix(" minuti");
     artista->setMaximumWidth(150);
     numeroTracce->setMaximumWidth(150);
+    numeroTracce->setMaximum(50);
     durataMusica->setMaximumWidth(150);
+    durataMusica->setMaximum(300);
+    durataMusica->setSuffix(" minuti");
     QPushButton* inserisci= new QPushButton("Inserisci");
     QPushButton* reset= new QPushButton("Reset");
     inserisci->setMaximumWidth(120);
@@ -171,11 +181,11 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
 
 std::string Inserimento::getScelta() const
 {
-    if (scelta->currentText()=="Birra")
-        return "Birra";
-    if (scelta->currentText()=="Vino")
-        return "Vino";
-    return "Liquore";
+    if (scelta->currentText()=="Libro")
+        return "Libro";
+    if (scelta->currentText()=="Film")
+        return "Film";
+    return "Musica";
 }
 
 std::string Inserimento::getTitolo() const

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--File di salvataggio dell'applicazione. Non modificare a mano.-->
+<root>
+    <MediaItem type="film">
+        <titolo>alfa</titolo>
+        <genere></genere>
+        <annoDistribuzione>0</annoDistribuzione>
+        <formato></formato>
+        <recensione>5</recensione>
+        <regista></regista>
+        <durata>0</durata>
+    </MediaItem>
+    <MediaItem type="film">
+        <titolo>beta</titolo>
+        <genere></genere>
+        <annoDistribuzione>0</annoDistribuzione>
+        <formato></formato>
+        <recensione>4</recensione>
+        <regista></regista>
+        <durata>0</durata>
+    </MediaItem>
+    <MediaItem type="film">
+        <titolo>gamma</titolo>
+        <genere></genere>
+        <annoDistribuzione>0</annoDistribuzione>
+        <formato></formato>
+        <recensione>3</recensione>
+        <regista></regista>
+        <durata>0</durata>
+    </MediaItem>
+</root>

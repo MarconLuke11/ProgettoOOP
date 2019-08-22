@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>style.css</file>
+        <file>img/App.png</file>
+        <file>img/cuore1.png</file>
+        <file>img/cuore2.png</file>
+        <file>img/cuore3.png</file>
+        <file>img/cuore4.png</file>
+        <file>img/cuore5.png</file>
+        <file>img/film1.png</file>
+        <file>img/film2.png</file>
+        <file>img/libro1.png</file>
+        <file>img/libro2.png</file>
+        <file>img/musica1.png</file>
+        <file>img/musica2.png</file>
+    </qresource>
+</RCC>
