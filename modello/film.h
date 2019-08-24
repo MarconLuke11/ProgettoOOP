@@ -10,7 +10,6 @@ private:
     unsigned int durata;
 public:
     Film(string="Nessun titolo", string="Nessun genere", unsigned int=0, string="Nessun formato", unsigned int=1, string="Nessun regista", unsigned int=0);
-    virtual Film* clone() const override;
     string info() const override;
     unsigned int durataTOT() const override;
 

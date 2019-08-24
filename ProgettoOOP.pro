@@ -39,7 +39,8 @@ SOURCES += \
         vista/inserimento.cpp \
         vista/mainwindow.cpp \
         vista/modifica.cpp \
-        vista/ricerca.cpp
+        vista/ricerca.cpp \
+        vista/sviluppo.cpp
 
 HEADERS += \
         modello/container.h \
@@ -54,7 +55,8 @@ HEADERS += \
         vista/inserimento.h \
         vista/mainwindow.h \
         vista/modifica.h \
-        vista/ricerca.h
+        vista/ricerca.h \
+        vista/sviluppo.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

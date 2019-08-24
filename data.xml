@@ -1,31 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--File di salvataggio dell'applicazione. Non modificare a mano.-->
 <root>
-    <MediaItem type="film">
-        <titolo>alfa</titolo>
-        <genere></genere>
-        <annoDistribuzione>0</annoDistribuzione>
-        <formato></formato>
+    <MediaItem type="musica">
+        <titolo>Delta</titolo>
+        <genere>Indie Folk</genere>
+        <annoDistribuzione>2018</annoDistribuzione>
+        <formato>CD</formato>
         <recensione>5</recensione>
-        <regista></regista>
-        <durata>0</durata>
+        <artista>Mumford &amp; Sons</artista>
+        <numeroTracce>14</numeroTracce>
+        <durata>62</durata>
+    </MediaItem>
+    <MediaItem type="musica">
+        <titolo>Tranquillity Base Hotel &amp; Casino</titolo>
+        <genere>Indie Rock</genere>
+        <annoDistribuzione>2018</annoDistribuzione>
+        <formato>CD</formato>
+        <recensione>1</recensione>
+        <artista>Arctic Monkeys</artista>
+        <numeroTracce>11</numeroTracce>
+        <durata>41</durata>
+    </MediaItem>
+    <MediaItem type="libro">
+        <titolo>Persone normali</titolo>
+        <genere>Narrativa</genere>
+        <annoDistribuzione>2019</annoDistribuzione>
+        <formato>Hardcover</formato>
+        <recensione>5</recensione>
+        <autore>Sally Rooney</autore>
+        <casaEditrice>Einaudi</casaEditrice>
+        <numeroPagine>248</numeroPagine>
     </MediaItem>
     <MediaItem type="film">
-        <titolo>beta</titolo>
-        <genere></genere>
-        <annoDistribuzione>0</annoDistribuzione>
-        <formato></formato>
+        <titolo>Jumanji</titolo>
+        <genere>Fantasy Commedia</genere>
+        <annoDistribuzione>1995</annoDistribuzione>
+        <formato>Digitale</formato>
         <recensione>4</recensione>
-        <regista></regista>
-        <durata>0</durata>
+        <regista>Joe Johnston</regista>
+        <durata>104</durata>
+    </MediaItem>
+    <MediaItem type="libro">
+        <titolo>Ragazze elettriche</titolo>
+        <genere>Distopico</genere>
+        <annoDistribuzione>2017</annoDistribuzione>
+        <formato>E-book</formato>
+        <recensione>2</recensione>
+        <autore>Naomi Alderman</autore>
+        <casaEditrice>Nottetempo</casaEditrice>
+        <numeroPagine>446</numeroPagine>
+    </MediaItem>
+    <MediaItem type="musica">
+        <titolo>Sempiternal</titolo>
+        <genere>Metalcore</genere>
+        <annoDistribuzione>2013</annoDistribuzione>
+        <formato>CD</formato>
+        <recensione>4</recensione>
+        <artista>Bring Me The Horizon</artista>
+        <numeroTracce>11</numeroTracce>
+        <durata>45</durata>
     </MediaItem>
     <MediaItem type="film">
-        <titolo>gamma</titolo>
-        <genere></genere>
-        <annoDistribuzione>0</annoDistribuzione>
-        <formato></formato>
+        <titolo>Now you see me 2</titolo>
+        <genere>Thriller Azione</genere>
+        <annoDistribuzione>2016</annoDistribuzione>
+        <formato>DVD</formato>
         <recensione>3</recensione>
-        <regista></regista>
-        <durata>0</durata>
+        <regista>Jon M. Chu</regista>
+        <durata>129</durata>
+    </MediaItem>
+    <MediaItem type="film">
+        <titolo>Quella casa nel bosco</titolo>
+        <genere>Horror</genere>
+        <annoDistribuzione>2012</annoDistribuzione>
+        <formato>Digitale</formato>
+        <recensione>1</recensione>
+        <regista>Drew Goddard</regista>
+        <durata>95</durata>
+    </MediaItem>
+    <MediaItem type="libro">
+        <titolo>One Piece (Vol1)</titolo>
+        <genere>Manga</genere>
+        <annoDistribuzione>1997</annoDistribuzione>
+        <formato>Cartaceo</formato>
+        <recensione>5</recensione>
+        <autore>Eiichiro Oda</autore>
+        <casaEditrice>Weekly Shonen Jump</casaEditrice>
+        <numeroPagine>208</numeroPagine>
     </MediaItem>
 </root>

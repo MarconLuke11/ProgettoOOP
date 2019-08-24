@@ -3,11 +3,6 @@
 Musica::Musica(string tit, string gen, unsigned int anno, string form, unsigned int rec, string art, unsigned int nTr, unsigned int dur):
     MediaItem (tit, gen, anno, form, rec), artista(art), numeroTracce(nTr), durata(dur)  {}
 
-Musica* Musica::clone() const
-{
-    return new Musica(*this);
-}
-
 string Musica::info() const
 {
     string stream;
@@ -58,11 +53,13 @@ void Musica::setDurata(const unsigned int& m)
 
 bool Musica::operator==(const MediaItem& a) const
 {
-    return dynamic_cast<const Musica*>(&a) && MediaItem::operator==(a); //&&
+    return dynamic_cast<const Musica*>(&a) && MediaItem::operator==(a) && artista==static_cast<const Musica&>(a).artista
+            && numeroTracce==static_cast<const Musica&>(a).numeroTracce && durata==static_cast<const Musica&>(a).durata;
 }
 
 bool Musica::operator!=(const MediaItem& a) const
 {
-    return !dynamic_cast<const Musica*>(&a); // ||
+    return !dynamic_cast<const Musica*>(&a) || MediaItem::operator!=(a) || artista!=static_cast<const Musica&>(a).artista
+            || numeroTracce!=static_cast<const Musica&>(a).numeroTracce || durata!=static_cast<const Musica&>(a).durata;
 }
 

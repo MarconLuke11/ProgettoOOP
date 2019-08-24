@@ -9,8 +9,8 @@ artistaShow(new QLabel ("",this)), numeroTracceShow(new QLabel ("",this)), durat
 searchBar (new QLineEdit (this))
 {
     setWindowTitle(tr("Media Qllection"));
-    setFixedSize(QSize(900,650));
-    setMinimumSize(720,300);
+    setFixedSize(QSize(750,650));
+    setMinimumSize(720,400);
     setMaximumSize(1000,700);
     setWindowIcon(QIcon("../ProgettoOOP/img/App.png"));
     vista->setFixedWidth(300);
@@ -23,6 +23,8 @@ searchBar (new QLineEdit (this))
     QPushButton* modifyButton = new QPushButton("Modifica", this);
     QPushButton* searchButton = new QPushButton ("Cerca",this);
     QPushButton* preferitiButton = new QPushButton ("Mostra solo preferiti",this);
+    preferitiButton->setIcon(QPixmap::fromImage(QImage("../ProgettoOOP/img/Preferiti.png")));
+    preferitiButton->setIconSize(QSize(32,32));
     QPushButton* durataButton = new QPushButton ("Calcola il tuo intrattenimento totale",this);
     QPushButton* ordineAlfa = new QPushButton ("Ordine alfabetico",this);
     searchButton->setObjectName("searchButton");    
@@ -38,6 +40,7 @@ searchBar (new QLineEdit (this))
     QAction* save = new QAction("Salva", menu);
     QAction* exit = new QAction("Esci", menu);
     QAction* about = new QAction("About",menu);
+    QAction* sviluppo = new QAction("Development Info",menu);
 
     //assemblo gli elementi del menu
     menuBar->addMenu(menu);
@@ -45,6 +48,7 @@ searchBar (new QLineEdit (this))
     menu->addAction(save);
     menu->addAction(exit);
     menu2->addAction(about);
+    menu2->addAction(sviluppo);
 
     //aggiunta barra di ricerca
     QHBoxLayout* search = new QHBoxLayout();
@@ -67,7 +71,6 @@ searchBar (new QLineEdit (this))
     buttons1->addWidget(addButton);
     buttons1->addWidget(removeButton);
 
-
     QHBoxLayout* buttons2 = new QHBoxLayout();
     buttons2->addWidget(modifyButton);
     buttons2->addWidget(clearButton);
@@ -79,6 +82,12 @@ searchBar (new QLineEdit (this))
     buttons4->addWidget(ordineAlfa);
 
     QVBoxLayout* buttons = new QVBoxLayout();
+
+    QHBoxLayout* spazioB = new QHBoxLayout();
+    spazioB->addSpacerItem(new QSpacerItem(0, 30));
+
+    QHBoxLayout* spazio2B = new QHBoxLayout();
+    spazio2B->addSpacerItem(new QSpacerItem(0, 30));
 
     //implementando il display() tutto ciò che segue puo essere compattato in un'unica funzione
     QVBoxLayout* infos = new QVBoxLayout();
@@ -122,14 +131,17 @@ searchBar (new QLineEdit (this))
 
     titoloShow->setObjectName("titolo");
 
+    QVBoxLayout* fourthLayout = new QVBoxLayout();
     QVBoxLayout* thirdLayout = new QVBoxLayout();
     QHBoxLayout* secondLayout = new QHBoxLayout();
+    QHBoxLayout* firstLayout = new QHBoxLayout();
 
     //sistemo i layout
     mainLayout->setMenuBar(menuBar);
-    mainLayout->addLayout(secondLayout);
+    mainLayout->addLayout(firstLayout);
+    firstLayout->addLayout(secondLayout);
+    firstLayout->addLayout(thirdLayout);
     secondLayout->addWidget(vista);
-    secondLayout->addLayout(thirdLayout);
     buttons->addLayout(buttons1);
     buttons->addLayout(buttons2);
     buttons->addLayout(buttons3);
@@ -137,8 +149,11 @@ searchBar (new QLineEdit (this))
     thirdLayout->addLayout(search);
     thirdLayout->addLayout(searchB);    
     thirdLayout->addLayout(preferitiB);
+    thirdLayout->addLayout(spazioB);
     thirdLayout->addLayout(infos);
-    thirdLayout->addLayout(buttons);
+    thirdLayout->addLayout(spazio2B);
+    mainLayout->addLayout(fourthLayout);
+    fourthLayout->addLayout(buttons);
 
     connect(addButton,SIGNAL(clicked()),this,SLOT(openInsert()));
     connect(removeButton,SIGNAL(clicked()),this,SLOT(removeItem()));
@@ -153,7 +168,9 @@ searchBar (new QLineEdit (this))
     connect(resetSearchButton, SIGNAL(clicked()), this, SLOT(resetSearch()));
     connect(preferitiButton, SIGNAL(clicked()), this, SLOT(openPreferiti()));
     connect(save, SIGNAL(triggered(bool)), this, SLOT(save()));
+    connect(save, SIGNAL(triggered(bool)), this, SLOT(salvato()));
     connect(about, SIGNAL(triggered(bool)), this, SLOT(about()));
+    connect(sviluppo, SIGNAL(triggered(bool)), this, SLOT(sviluppo()));
     connect(ordineAlfa,SIGNAL(clicked(bool)),this,SLOT(ordineAlfa()));
     connect(exit,SIGNAL(triggered(bool)),this,SLOT(close()));
 }
@@ -204,22 +221,40 @@ void MainWindow::load()
 }
 
 void MainWindow::openInsert() const{
-    inserimento->setObjectName("inserimento");
+    inserimento->setObjectName("Inserimento");
     inserimento->exec();
 }
 
 void MainWindow::openSearch()
 {
     Ricerca* cerca = new Ricerca(vista, modello, this);
-    cerca->setObjectName("ricerca");
+    cerca->setObjectName("ricercaWindow");
     cerca->exec();
 }
 
+void MainWindow::openPreferiti()
+{
+    for(int i = 0; i < modello->conta(); i++)
+    {
+        if((*(modello->getElement(i)))->getRecensione()!=5)
+        {
+            vista->item(i)->setHidden(true);
+        }
+    }
+}
+
+void MainWindow::openDurata()
+{
+    DurataTotale* prezzo = new DurataTotale(modello,this);
+    prezzo->setObjectName("durataWindow");
+    prezzo->exec();
+}
+
 void MainWindow::addItem() {
-    if (inserimento->getTitolo()=="" || inserimento->getRecensione()>5 || inserimento->getRecensione()<1)
+    if (inserimento->getTitolo()=="")
     {
             QMessageBox error;
-            error.critical(this,"Errore","I campi Titolo e Recensione sono obbligatori");
+            error.critical(this,"Errore","Il campo Titolo è un campo obbligatorio");
             error.setFixedSize(300,100);
     }
 
@@ -413,31 +448,14 @@ void MainWindow::openModify()
     }
 }
 
-void MainWindow::openPreferiti()
-{
-    for(int i = 0; i < modello->conta(); i++)
-    {
-        if((*(modello->getElement(i)))->getRecensione()!=5)
-        {
-            vista->item(i)->setHidden(true);
-        }
-    }
-}
-
-void MainWindow::openDurata()
-{
-    DurataTotale* prezzo = new DurataTotale(modello,this);
-    prezzo->setObjectName("durataWindow");
-    prezzo->exec();
-}
-
 void MainWindow::textFilterChanged(){
     if (searchBar->text()!=""){
-        QRegExp regex(searchBar->text(), Qt::CaseInsensitive, QRegExp::Wildcard);
+        std::string c = searchBar->text().toStdString();
+        std::regex rx("[a-zA-Z]*" + c + "[a-zA-Z]*", std::regex_constants::icase);
         for(int i = 0; i < modello->conta(); i++){
             std::string x = modello->getElement(i).operator*()->getTitolo();
             QString exp = QString::fromStdString(x);
-            if(!regex.exactMatch(exp)){
+            if(!std::regex_match(x,rx)){
                 vista->item(i)->setHidden(true);
             }
         }
@@ -482,9 +500,21 @@ void MainWindow::about()
     about->exec();
 }
 
+void MainWindow::sviluppo()
+{
+    Sviluppo* sviluppo = new Sviluppo(this);
+    sviluppo->setObjectName("developmentInfoWindow");
+    sviluppo->exec();
+}
+
 void MainWindow::ordineAlfa()
 {
         vista->sortItems();
         modello->ordAlfa();
 }
 
+void MainWindow::salvato(){
+    QMessageBox *salvato = new QMessageBox(this);
+    salvato->setText("Archivio salvato correttamente!");
+    salvato->exec();
+}

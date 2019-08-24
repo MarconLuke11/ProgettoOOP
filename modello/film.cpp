@@ -3,11 +3,6 @@
 Film::Film(string tit, string gen, unsigned int anno, string form, unsigned int rec, string reg, unsigned int dur):
     MediaItem (tit, gen, anno, form, rec), regista(reg), durata(dur) {}
 
-Film* Film::clone() const
-{
-    return new Film(*this);
-}
-
 string Film::info() const
 {
     string stream;
@@ -46,10 +41,12 @@ void Film::setDurata(const unsigned int &d)
 
 bool Film::operator==(const MediaItem &a) const
 {
-    return dynamic_cast<const Film*>(&a) && MediaItem::operator==(a); //&&
+    return dynamic_cast<const Film*>(&a) && MediaItem::operator==(a) && regista==static_cast<const Film&>(a).regista
+            && durata==static_cast<const Film&>(a).durata;
 }
 
 bool Film::operator!=(const MediaItem& a) const
 {
-    return !dynamic_cast<const Film*>(&a); // ||
+    return !dynamic_cast<const Film*>(&a) || MediaItem::operator!=(a) || regista!=static_cast<const Film&>(a).regista
+            || durata!=static_cast<const Film&>(a).durata;
 }

@@ -19,8 +19,7 @@ private:
     unsigned int recensione;
 public:
     MediaItem(string="Nessun titolo", string="Nessun genere", unsigned int=0, string="Nessun formato", unsigned int=1);
-    virtual ~MediaItem() = default; //
-    virtual MediaItem* clone() const=0; //in altrnativa potevo definire static MediaItem* clone(Mediaitem*)
+    virtual ~MediaItem() = default; //distruttore
     virtual string info() const; //per ottenere le informazioni dell'oggetto
     virtual unsigned int durataTOT() const=0; //per calcolare la durata
 

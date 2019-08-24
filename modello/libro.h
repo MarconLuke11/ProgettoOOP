@@ -11,7 +11,6 @@ private:
     unsigned int numeroPagine;
 public:
     Libro(string="Nessun titolo", string="Nessun genere", unsigned int=0, string="Nessun formato", unsigned int=1, string="Nessun autore", string="Nessuna casa editrice", unsigned int=0);
-    virtual Libro* clone() const override;
     string info() const override;
     unsigned int durataTOT() const override;
 

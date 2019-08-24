@@ -11,7 +11,6 @@ private:
     unsigned int durata;
 public:
     Musica(string="Nessun titolo", string="Nessun genere", unsigned int=0, string="Nessun formato", unsigned int=1, string="Nessun artista", unsigned int=0, unsigned int=0);
-    virtual Musica* clone() const override;
     string info() const override;
     unsigned int durataTOT() const override;
 

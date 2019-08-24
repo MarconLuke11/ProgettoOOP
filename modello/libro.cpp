@@ -3,11 +3,6 @@
 Libro::Libro(string tit, string gen, unsigned int anno, string form, unsigned int rec, string aut, string cEd, unsigned int pag):
     MediaItem (tit, gen, anno, form, rec), autore(aut), casaEditrice(cEd), numeroPagine(pag)  {}
 
-Libro* Libro::clone() const
-{
-    return new Libro(*this);
-}
-
 string Libro::info() const
 {
     string stream;
@@ -56,10 +51,12 @@ void Libro::setPagine(const unsigned int& m)
 
 bool Libro::operator==(const MediaItem& a) const
 {
-    return dynamic_cast<const Libro*>(&a) && MediaItem::operator==(a); //&&
+    return dynamic_cast<const Libro*>(&a) && MediaItem::operator==(a) && autore==static_cast<const Libro&>(a).autore
+            && casaEditrice==static_cast<const Libro&>(a).casaEditrice && numeroPagine==static_cast<const Libro&>(a).numeroPagine;
 }
 
 bool Libro::operator!=(const MediaItem& a) const
 {
-    return !dynamic_cast<const Libro*>(&a); // ||
+    return !dynamic_cast<const Libro*>(&a) || MediaItem::operator!=(a) || autore!=static_cast<const Libro&>(a).autore
+            || casaEditrice!=static_cast<const Libro&>(a).casaEditrice || numeroPagine!=static_cast<const Libro&>(a).numeroPagine;
 }

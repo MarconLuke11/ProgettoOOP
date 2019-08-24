@@ -27,6 +27,7 @@ private:
       };
       static nodo* copy(nodo*, nodo*&);
       static std::ostream& print(nodo*, std::ostream&);
+      static bool compare(nodo*, nodo*);
       nodo *first, *last;
 
 public:
@@ -79,13 +80,17 @@ public:
       iteratore min_element(iteratore, iteratore) const;
       const_iteratore cbegin() const;
       const_iteratore cend() const;
-      // iteratore search(const T&) const;
+      iteratore search(const T&) const; //non implementato, disponibile per implementazioni future
       void remove(int);
       void removeAlt();
       int count() const;
       void swap(T&, T&);
       int size() const;
       iteratore getItem(int i) const;
+      T& getFirst();
+      T& getLast();
+      bool operator==(const Container&);
+      bool operator!=(const Container&);
 };
 
 
@@ -122,6 +127,15 @@ typename std::ostream& Container<T>::print(nodo* l,std::ostream& os)
     os << l->info << ' ';
     print(l->next,os);
     return os;
+}
+
+template<class T>
+bool Container<T>::compare(nodo* a, nodo* b)
+{
+    if(!a && !b) return true;
+    if(!a) return false;
+    if(!b) return false;
+    return a->info == b->info && compare(a->next,b->next);
 }
 
 //classe iteratore
@@ -499,6 +513,27 @@ typename Container<T>::iteratore Container<T>::getItem(int i) const
     return it;
 }
 
+template <class T>
+T& Container<T>::getFirst()
+{
+    return first->info;
+}
+
+template <class T>
+T& Container<T>::getLast()
+{
+    return last->info;
+}
+
+template <class T>
+bool Container<T>::operator==(const Container<T>& q){
+    return compare(first,q.first);
+}
+
+template <class T>
+bool Container<T>::operator!=(const Container<T>& q){
+    return !compare(first,q.first);
+}
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Container<T>& q)

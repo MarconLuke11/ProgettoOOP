@@ -16,12 +16,14 @@
 #include <QIcon>
 #include <QMenu>
 #include <QMenuBar>
+#include <regex>
 
 #include "modello/modello.h"
 #include "inserimento.h"
 #include "modifica.h"
 #include "duratatotale.h"
 #include "about.h"
+#include "sviluppo.h"
 #include "ricerca.h"
 #include "modello/container.h"
 #include "modello/libro.h"
@@ -77,7 +79,9 @@ public slots:
     void resetSearch();
     void save();
     void about();
+    void sviluppo();
     void ordineAlfa();
+    void salvato();
     //void display();
 };
 

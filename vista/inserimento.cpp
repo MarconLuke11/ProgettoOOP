@@ -19,9 +19,9 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
                          genereL (new QLabel ("Genere: ",this)), annoDistribuzioneL (new QLabel (QString::fromUtf8("Anno di distribuzione: "),this)), formatoL (new QLabel ("Formato: ",this)),
                          recensioneL (new QLabel ("Recensione: ",this)), autoreL (new QLabel ("Autore: ",this)),
                          casaEditriceL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
-                         registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film: ", this)),
+                         registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
                          artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-                         durataMusicaL(new QLabel("Durata musica: ", this)),
+                         durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
                          titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
                          annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
                          recensione (new QComboBox (this)), autore (new QLineEdit (this)),
@@ -36,7 +36,8 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     genere->setMaximumWidth(150);
     genere->setPlaceholderText("Es. Fantasy, Avventura, ecc.");
     annoDistribuzione->setMaximumWidth(150);
-    annoDistribuzione->setMaximum(2100);
+    annoDistribuzione->setMaximum(2500);
+    annoDistribuzione->setValue(2000);
     formato->setMaximumWidth(150);
     formato->setPlaceholderText("Es. Digitale, DVD, CD, ecc.");
     recensione->setMaximumWidth(150);
@@ -44,17 +45,17 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     casaEditrice->setMaximumWidth(150);
     numeroPagine->setMaximumWidth(150);
     numeroPagine->setMaximum(10000);
-    numeroPagine->setSuffix(" pagine");
+    //numeroPagine->setSuffix(" pagine");
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);
     durataFilm->setMaximum(300);
-    durataFilm->setSuffix(" minuti");
+    //durataFilm->setSuffix(" minuti");
     artista->setMaximumWidth(150);
     numeroTracce->setMaximumWidth(150);
     numeroTracce->setMaximum(50);
     durataMusica->setMaximumWidth(150);
     durataMusica->setMaximum(300);
-    durataMusica->setSuffix(" minuti");
+    //durataMusica->setSuffix(" minuti");
     QPushButton* inserisci= new QPushButton("Inserisci");
     QPushButton* reset= new QPushButton("Reset");
     inserisci->setMaximumWidth(120);
@@ -265,11 +266,17 @@ void Inserimento::reset() const
 {
     titolo->setText("");
     genere->setText("");
+    annoDistribuzione->setValue(2000);
     formato->setText("");
+    recensione->setCurrentIndex(0);
     autore->setText("");
     casaEditrice->setText("");
+    numeroPagine->setValue(0);
     regista->setText("");
+    durataFilm->setValue(0);
     artista->setText("");
+    numeroTracce->setValue(0);
+    durataMusica->setValue(0);
 }
 
 void Inserimento::visualizza(const QString & s) const

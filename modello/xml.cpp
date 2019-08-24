@@ -114,7 +114,7 @@ Container<MediaItem *> xml::read() const
                                 const QString textValue = reader.readElementText();
                                 x->setGenere(textValue.toStdString());
                             }
-                            if(reader.name() == "annDistribuzione"){
+                            if(reader.name() == "annoDistribuzione"){
                                 const QString textValue = reader.readElementText();
                                 x->setAnno(textValue.toUInt());
                             }

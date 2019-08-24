@@ -13,5 +13,7 @@
         <file>img/libro2.png</file>
         <file>img/musica1.png</file>
         <file>img/musica2.png</file>
+        <file>img/Preferiti.png</file>
+        <file>img/Qt.png</file>
     </qresource>
 </RCC>

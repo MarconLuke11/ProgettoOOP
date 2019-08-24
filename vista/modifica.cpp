@@ -17,15 +17,16 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QString>
+#include <QMessageBox>
 
 Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog(parent), modello(m),index(i),vista(v),
     titoloL (new QLabel ("Titolo*: ",this)), genereL (new QLabel ("Genere: ",this)),
     annoDistribuzioneL (new QLabel (QString::fromUtf8("Anno di distribuzione: "),this)), formatoL (new QLabel ("Formato: ",this)),
     recensioneL (new QLabel ("Recensione: ",this)), autoreL (new QLabel ("Autore: ",this)),
     casaEditriceL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
-    registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film: ", this)),
+    registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
     artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-    durataMusicaL(new QLabel("Durata musica: ", this)),
+    durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
     titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
     annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
     recensione (new QComboBox (this)), autore (new QLineEdit (this)),
@@ -36,26 +37,28 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     setWindowTitle(tr("Modifica"));
     setFixedSize(QSize(400,450));
     titolo->setMaximumWidth(150);
+    titolo->setPlaceholderText("Campo obbligatorio");
     genere->setMaximumWidth(150);
     annoDistribuzione->setMaximumWidth(150);
-    annoDistribuzione->setMaximum(2100);
+    annoDistribuzione->setMaximum(2500);
+    annoDistribuzione->setValue(2000);
     formato->setMaximumWidth(150);
     recensione->setMaximumWidth(150);
     autore->setMaximumWidth(150);
     casaEditrice->setMaximumWidth(150);
     numeroPagine->setMaximumWidth(150);
     numeroPagine->setMaximum(10000);
-    numeroPagine->setSuffix(" pagine");
+    //numeroPagine->setSuffix(" pagine");
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);
     durataFilm->setMaximum(300);
-    durataFilm->setSuffix(" minuti");
+    //durataFilm->setSuffix(" minuti");
     artista->setMaximumWidth(150);
     numeroTracce->setMaximumWidth(150);
     numeroTracce->setMaximum(50);
     durataMusica->setMaximumWidth(150);
     durataMusica->setMaximum(300);
-    durataMusica->setSuffix(" minuti");
+    //durataMusica->setSuffix(" minuti");
     QPushButton* modifica= new QPushButton("Modifica");
     QPushButton* reset= new QPushButton("Reset");
     modifica->setMaximumWidth(120);
@@ -156,6 +159,7 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     genere->setText(QString::fromStdString((item)->getGenere()));
     annoDistribuzione->setValue(item->getAnno());
     formato->setText(QString::fromStdString((item)->getFormato()));
+    recensione->setCurrentIndex(((item)->getRecensione()-1));
 
     if (dynamic_cast<Libro*>(item)){
         Libro* i=dynamic_cast<Libro*>(item);
@@ -244,6 +248,14 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
 
 void Modifica::modifica()
 {
+    if(getTitolo() == ""){
+        QMessageBox error;
+        error.critical(this,"Errore","Campi obbligatori mancanti o non validi\nIl titolo è un campo obbligatorio");
+        error.setFixedSize(300,100);
+        hide();
+    }
+    else
+    {
     MediaItem* item = *(modello->getElement(index));
     item->setRecensione(getRecensione());
     QListWidgetItem* listitem = vista->currentItem();
@@ -292,17 +304,24 @@ void Modifica::modifica()
     itemView->setText(a);
     vista->clearSelection();
     hide();
+    }
 }
 
 void Modifica::reset() const
 {
     titolo->setText("");
     genere->setText("");
+    annoDistribuzione->setValue(2000);
     formato->setText("");
+    recensione->setCurrentIndex(0);
     autore->setText("");
     casaEditrice->setText("");
+    numeroPagine->setValue(0);
     regista->setText("");
+    durataFilm->setValue(0);
     artista->setText("");
+    numeroTracce->setValue(0);
+    durataMusica->setValue(0);
 }
 
 std::string Modifica::getTitolo() const

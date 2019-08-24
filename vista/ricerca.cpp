@@ -6,10 +6,9 @@ Ricerca::Ricerca(QListWidget* v, Modello* m, QWidget *parent):QDialog(parent), v
     setWindowTitle(tr("Ricerca personalizzata"));
     setFixedSize(QSize(300,100));
 
-    scelta->addItem("Libro");
+    scelta->addItem("Libri");
     scelta->addItem("Film");
     scelta->addItem("Musica");
-    scelta->addItem("Preferiti (5 cuori)");
     scelta->setMinimumWidth(250);
     cerca->setMinimumWidth(150);
     QVBoxLayout* Layout = new QVBoxLayout(this);
@@ -42,13 +41,6 @@ void Ricerca::ricercaPersonalizzata()
     if (scelta->currentIndex()==2){
         for(int i = 0; i < lista->conta(); i++){
             if(!dynamic_cast<Musica*>((*(lista->getElement(i))))){
-                view->item(i)->setHidden(true);
-            }
-        }
-    }
-    if (scelta->currentIndex()==3){
-        for(int i = 0; i < lista->conta(); i++){
-            if((*(lista->getElement(i)))->getRecensione()!=5){
                 view->item(i)->setHidden(true);
             }
         }
