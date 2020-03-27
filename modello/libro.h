@@ -9,7 +9,7 @@ private:
     string autore;
     string casaEditrice;
 public:
-    Libro(string="Nessun titolo", string="Nessun genere", unsigned int=0, string="Nessun formato", unsigned int=1, string="Nessun autore", string="Nessuna casa editrice");
+    Libro(string="Nessun autore", string="Nessuna casa editrice");
     string info() const override;
 
     string getAutore() const;
