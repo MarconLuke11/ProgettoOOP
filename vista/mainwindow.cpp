@@ -245,9 +245,9 @@ void MainWindow::openPreferiti()
 
 void MainWindow::openDurata()
 {
-    DurataTotale* prezzo = new DurataTotale(modello,this);
-    prezzo->setObjectName("durataWindow");
-    prezzo->exec();
+    DurataTotale* durata = new DurataTotale(modello,this);
+    durata->setObjectName("durataWindow");
+    durata->exec();
 }
 
 void MainWindow::addItem() {
@@ -365,6 +365,7 @@ void MainWindow::showLabel()
         if (dynamic_cast<Musica*>(*selected)){
             img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/musica2.png")));
             auto cast=dynamic_cast<Musica*>(*selected);
+
             artistaShow->setText("Artista: " + QString::fromStdString((cast)->getArtista()));
             numeroTracceShow->setText("Numero di tracce: " + QString::number((cast)->getNumeroTracce()));
             durataMusicaShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
@@ -514,7 +515,7 @@ void MainWindow::ordineAlfa()
 }
 
 void MainWindow::salvato(){
-    QMessageBox *salvato = new QMessageBox(this);
+    QMessageBox* salvato = new QMessageBox(this);
     salvato->setText("Archivio salvato correttamente!");
     salvato->exec();
 }
