@@ -27,9 +27,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        modello/audiolibro.cpp \
         modello/container.cpp \
+        modello/fileaudio.cpp \
         modello/film.cpp \
         modello/libro.cpp \
+        modello/librodigitale.cpp \
         modello/mediaitem.cpp \
         modello/modello.cpp \
         modello/musica.cpp \
@@ -43,9 +46,12 @@ SOURCES += \
         vista/sviluppo.cpp
 
 HEADERS += \
+        modello/audiolibro.h \
         modello/container.h \
+        modello/fileaudio.h \
         modello/film.h \
         modello/libro.h \
+        modello/librodigitale.h \
         modello/mediaitem.h \
         modello/modello.h \
         modello/musica.h \
