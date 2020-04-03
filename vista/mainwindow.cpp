@@ -270,13 +270,13 @@ void MainWindow::addItem() {
         QIcon icona;
         if (inserimento->getScelta()=="Libro Digitale"){
                 Librodigitale* item = new Librodigitale(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
-                                      inserimento->getAutore(),inserimento->getCasaEditrice(),inserimento->getPagine() );
+                                      inserimento->getAutoreLD(),inserimento->getCasaEditriceLD(),inserimento->getPagine() );
                 modello->aggiungi(item);
                 icona= QIcon("../Progetto-P2/img/libro1.png");
         }
         if (inserimento->getScelta()=="Audiolibro"){
                 Audiolibro* item = new Audiolibro(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
-                                      inserimento->getAutore(),inserimento->getCasaEditrice(),inserimento->getDurataMusica(),inserimento->getNarratore() );
+                                      inserimento->getAutoreAL(),inserimento->getCasaEditriceAL(),inserimento->getDurataAL(),inserimento->getNarratore() );
                 modello->aggiungi(item);
                 icona= QIcon("../Progetto-P2/img/libro1.png");
         }
@@ -332,19 +332,19 @@ void MainWindow::showLabel()
         formatoShow->setText(QString::fromUtf8("Formato: ") + QString::fromStdString((*(selected))->getFormato()));
         recensioneShow->setText("");
         if ((*(selected))->getRecensione()==1){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore1.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore1.png")));
         }
         if ((*(selected))->getRecensione()==2){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore2.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore2.png")));
         }
         if ((*(selected))->getRecensione()==3){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore3.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore3.png")));
         }
         if ((*(selected))->getRecensione()==4){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore4.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore4.png")));
         }
         if ((*(selected))->getRecensione()==5){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore5.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore5.png")));
         }
 
         if (dynamic_cast<Librodigitale*>(*selected)){
