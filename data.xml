@@ -21,7 +21,7 @@
         <numeroTracce>11</numeroTracce>
         <durata>41</durata>
     </MediaItem>
-    <MediaItem type="libro">
+    <MediaItem type="librodigitale">
         <titolo>Persone normali</titolo>
         <genere>Narrativa</genere>
         <annoDistribuzione>2019</annoDistribuzione>
@@ -40,7 +40,7 @@
         <regista>Joe Johnston</regista>
         <durata>104</durata>
     </MediaItem>
-    <MediaItem type="libro">
+    <MediaItem type="librodigitale">
         <titolo>Ragazze elettriche</titolo>
         <genere>Distopico</genere>
         <annoDistribuzione>2017</annoDistribuzione>
@@ -78,7 +78,7 @@
         <regista>Drew Goddard</regista>
         <durata>95</durata>
     </MediaItem>
-    <MediaItem type="libro">
+    <MediaItem type="librodigitale">
         <titolo>One Piece (Vol1)</titolo>
         <genere>Manga</genere>
         <annoDistribuzione>1997</annoDistribuzione>

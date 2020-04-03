@@ -22,8 +22,8 @@ Container<MediaItem *> xml::read() const
                     const QXmlStreamAttributes attributes = reader.attributes();
                     const QString type = attributes.hasAttribute("type") ? attributes.value("type").toString() : "";
 
-                    if(type == "libro"){
-                        Libro* x = new Libro();
+                    if(type == "librodigitale"){
+                        Librodigitale* x = new Librodigitale();
                         list.push_back(x);
                         while(reader.readNextStartElement()){
                             if(reader.name() == "titolo"){
@@ -59,6 +59,51 @@ Container<MediaItem *> xml::read() const
                             if(reader.name() == "numeroPagine"){
                                 const QString textValue = reader.readElementText();
                                 x->setPagine(textValue.toUInt());
+                            }
+                        }
+                    }
+
+                    if(type == "audiolibro"){
+                        Audiolibro* x = new Audiolibro();
+                        list.push_back(x);
+                        while(reader.readNextStartElement()){
+                            if(reader.name() == "titolo"){
+                                const QString textValue = reader.readElementText();
+                                x->setTitolo(textValue.toStdString());
+
+                                qDebug() << "Letto " + type + ": " + textValue;
+                            }
+                            if(reader.name() == "genere"){
+                                const QString textValue = reader.readElementText();
+                                x->setGenere(textValue.toStdString());
+                            }
+                            if(reader.name() == "annoDistribuzione"){
+                                const QString textValue = reader.readElementText();
+                                x->setAnno(textValue.toUInt());
+                            }
+                            if(reader.name() == "formato"){
+                                const QString textValue = reader.readElementText();
+                                x->setFormato(textValue.toStdString());
+                            }
+                            if(reader.name() == "recensione"){
+                                const QString textValue = reader.readElementText();
+                                x->setRecensione(textValue.toUInt());
+                            }
+                            if(reader.name() == "autore"){
+                                const QString textValue = reader.readElementText();
+                                x->setAutore(textValue.toStdString());
+                            }
+                            if(reader.name() == "casaEditrice"){
+                                const QString textValue = reader.readElementText();
+                                x->setCasaEditrice(textValue.toStdString());
+                            }
+                            if(reader.name() == "durata"){
+                                const QString textValue = reader.readElementText();
+                                x->setDurata(textValue.toUInt());
+                            }
+                            if(reader.name() == "narratore"){
+                                const QString textValue = reader.readElementText();
+                                x->setNarratore(textValue.toStdString());
                             }
                         }
                     }
@@ -176,8 +221,10 @@ void xml::write(Container<MediaItem *> & lista) const
 
         MediaItem* media = *it;
         std::string type;
-        if(dynamic_cast<Libro*>(media))
-            type = "libro";
+        if(dynamic_cast<Librodigitale*>(media))
+            type = "librodigitale";
+        if(dynamic_cast<Audiolibro*>(media))
+            type = "audiolibro";
         if(dynamic_cast<Film*>(media))
             type = "film";
         if(dynamic_cast<Musica*>(media))
@@ -206,19 +253,39 @@ void xml::write(Container<MediaItem *> & lista) const
         writer.writeCharacters(QString::number(media->getRecensione()));
         writer.writeEndElement();
 
-        if(dynamic_cast<Libro*>(media)){
-            Libro* libro = static_cast<Libro*>(media);
+        if(dynamic_cast<Librodigitale*>(media)){
+            Librodigitale* librodigitale = dynamic_cast<Librodigitale*>(media);
 
             writer.writeStartElement("autore");
-            writer.writeCharacters(QString::fromStdString((libro->getAutore())));
+            writer.writeCharacters(QString::fromStdString((librodigitale->getAutore())));
             writer.writeEndElement();
 
             writer.writeStartElement("casaEditrice");
-            writer.writeCharacters(QString::fromStdString(libro->getCasaEditrice()));
+            writer.writeCharacters(QString::fromStdString(librodigitale->getCasaEditrice()));
             writer.writeEndElement();
 
             writer.writeStartElement("numeroPagine");
-            writer.writeCharacters(QString::number(libro->getPagine()));
+            writer.writeCharacters(QString::number(librodigitale->getPagine()));
+            writer.writeEndElement();
+        }
+
+        if(dynamic_cast<Audiolibro*>(media)){
+            Audiolibro* audiolibro = dynamic_cast<Audiolibro*>(media);
+
+            writer.writeStartElement("autore");
+            writer.writeCharacters(QString::fromStdString((audiolibro->getAutore())));
+            writer.writeEndElement();
+
+            writer.writeStartElement("casaEditrice");
+            writer.writeCharacters(QString::fromStdString(audiolibro->getCasaEditrice()));
+            writer.writeEndElement();
+
+            writer.writeStartElement("durata");
+            writer.writeCharacters(QString::number(audiolibro->getDurata()));
+            writer.writeEndElement();
+
+            writer.writeStartElement("narratore");
+            writer.writeCharacters(QString::fromStdString(audiolibro->getNarratore()));
             writer.writeEndElement();
         }
 
@@ -235,7 +302,7 @@ void xml::write(Container<MediaItem *> & lista) const
         }
 
         if(dynamic_cast<Musica*>(media)){
-            Musica* musica = static_cast<Musica*>(media);
+            Musica* musica = dynamic_cast<Musica*>(media);
 
             writer.writeStartElement("artista");
             writer.writeCharacters(QString::fromStdString(musica->getArtista()));

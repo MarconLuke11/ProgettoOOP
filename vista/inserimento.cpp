@@ -19,14 +19,14 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
                          genereL (new QLabel ("Genere: ",this)), annoDistribuzioneL (new QLabel (QString::fromUtf8("Anno di distribuzione: "),this)), formatoL (new QLabel ("Formato: ",this)),
                          recensioneL (new QLabel ("Recensione: ",this)), autoreL (new QLabel ("Autore: ",this)),
                          casaEditriceL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
-                         registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
+                         narratoreL(new QLabel("Narratore: ", this)), registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
                          artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-                         durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
+                         durataMusicaL(new QLabel("Durata file audio (minuti): ", this)),
                          titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
                          annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
                          recensione (new QComboBox (this)), autore (new QLineEdit (this)),
                          casaEditrice (new QLineEdit (this)), numeroPagine (new QSpinBox (this)),
-                         regista (new QLineEdit (this)), durataFilm (new QSpinBox (this)), artista (new QLineEdit (this)),
+                         narratore (new QLineEdit (this)), regista (new QLineEdit (this)), durataFilm (new QSpinBox (this)), artista (new QLineEdit (this)),
                          numeroTracce (new QSpinBox (this)), durataMusica (new QSpinBox (this))
 {
     setWindowTitle(tr("Inserimento"));
@@ -46,6 +46,7 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     numeroPagine->setMaximumWidth(150);
     numeroPagine->setMaximum(10000);
     //numeroPagine->setSuffix(" pagine");
+    narratore->setMaximumWidth(150);
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);
     durataFilm->setMaximum(300);
@@ -64,7 +65,8 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     reset->setMinimumHeight(40);
 
 
-    scelta->addItem("Libro");
+    scelta->addItem("Libro Digitale");
+    scelta->addItem("Audiolibro");
     scelta->addItem("Film");
     scelta->addItem("Musica");
     scelta->setMaximumWidth(150);
@@ -114,6 +116,10 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     numeroPagineLayout->addWidget(numeroPagineL);
     numeroPagineLayout->addWidget(numeroPagine);
 
+    QHBoxLayout* narratoreLayout = new QHBoxLayout();
+    narratoreLayout->addWidget(narratoreL);
+    narratoreLayout->addWidget(narratore);
+
     QHBoxLayout* registaLayout = new QHBoxLayout();
     registaLayout->addWidget(registaL);
     registaLayout->addWidget(regista);
@@ -148,6 +154,7 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     Layout->addLayout(autoreLayout);
     Layout->addLayout(casaEditriceLayout);
     Layout->addLayout(numeroPagineLayout);
+    Layout->addLayout(narratoreLayout);
     Layout->addLayout(registaLayout);
     Layout->addLayout(durataFilmLayout);
     Layout->addLayout(artistaLayout);
@@ -166,6 +173,8 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     casaEditrice->setVisible(false);
     numeroPagineL->setVisible(false);
     numeroPagine->setVisible(false);
+    narratoreL->setVisible(false);
+    narratore->setVisible(false);
     registaL->setVisible(false);
     regista->setVisible(false);
     durataFilmL->setVisible(false);
@@ -182,8 +191,10 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
 
 std::string Inserimento::getScelta() const
 {
-    if (scelta->currentText()=="Libro")
-        return "Libro";
+    if (scelta->currentText()=="Libro Digitale")
+        return "Libro Digitale";
+    if (scelta->currentText()=="Audiolibro")
+        return "Audiolibro";
     if (scelta->currentText()=="Film")
         return "Film";
     return "Musica";
@@ -237,6 +248,11 @@ unsigned int Inserimento::getPagine() const
     return numeroPagine->text().toUInt();
 }
 
+std::string Inserimento::getNarratore() const
+{
+    return narratore->text().toStdString();
+}
+
 std::string Inserimento::getRegista() const
 {
     return regista->text().toStdString();
@@ -272,6 +288,7 @@ void Inserimento::reset() const
     autore->setText("");
     casaEditrice->setText("");
     numeroPagine->setValue(0);
+    narratore->setText("");
     regista->setText("");
     durataFilm->setValue(0);
     artista->setText("");
@@ -282,7 +299,7 @@ void Inserimento::reset() const
 void Inserimento::visualizza(const QString & s) const
 {
 
-    if (s=="Libro"){
+    if (s=="Libro Digitale"){
         autoreL->setVisible(true);
         autore->setVisible(true);
         casaEditriceL->setVisible(true);
@@ -297,6 +314,27 @@ void Inserimento::visualizza(const QString & s) const
         casaEditrice->setVisible(false);
         numeroPagineL->setVisible(false);
         numeroPagine->setVisible(false);
+    }
+
+    if (s=="Audiolibro"){
+        autoreL->setVisible(true);
+        autore->setVisible(true);
+        casaEditriceL->setVisible(true);
+        casaEditrice->setVisible(true);
+        durataMusicaL->setVisible(true);
+        durataMusica->setVisible(true);
+        narratoreL->setVisible(true);
+        narratore->setVisible(true);
+    }
+    else{
+        autoreL->setVisible(false);
+        autore->setVisible(false);
+        casaEditriceL->setVisible(false);
+        casaEditrice->setVisible(false);
+        durataMusicaL->setVisible(false);
+        durataMusica->setVisible(false);
+        narratoreL->setVisible(false);
+        narratore->setVisible(false);
     }
 
     if (s=="Film"){

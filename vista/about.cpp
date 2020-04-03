@@ -7,7 +7,7 @@ About::About(QWidget *parent) : QDialog(parent)
                                 "Matricola: 1070602\n"
                                 "Progetto di Programmazione ad Oggetti\n"
                                 "Corso di Studi: Informatica(UniPd)\n"
-                                "Anno Accademico 2018/19\n"
+                                "Anno Accademico 2019/20\n"
                                 );
 
     QVBoxLayout* main = new QVBoxLayout (this);

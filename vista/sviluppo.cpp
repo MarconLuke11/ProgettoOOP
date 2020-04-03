@@ -11,7 +11,7 @@ Sviluppo::Sviluppo(QWidget *parent) : QDialog(parent)
 
     QVBoxLayout* main = new QVBoxLayout (this);
     QLabel* foto = new QLabel("");
-    foto->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/Qt.png")));
+    foto->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/Qt.png")));
     main->addWidget(foto);
     main->addWidget(sviluppo);
     foto->setAlignment(Qt::AlignHCenter);

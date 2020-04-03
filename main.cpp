@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QFile file("../ProgettoOOP/style.css");
+    QFile file("../Progetto-P2/style.css");
     file.open(QFile::ReadOnly);
     QString style = QLatin1String(file.readAll());
 

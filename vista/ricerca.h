@@ -10,8 +10,9 @@
 #include <QPushButton>
 
 #include "modello/modello.h"
-#include "modello/libro.h"
+#include "modello/audiolibro.h"
 #include "modello/film.h"
+#include "modello/librodigitale.h"
 #include "modello/musica.h"
 
 class Ricerca: public QDialog

@@ -69,12 +69,12 @@ int Modello::sizeModello() const
 
 void Modello::saveToFile()
 {
-    xml xml("../ProgettoOOP/data.xml");
+    xml xml("../Progetto-P2/data.xml");
     xml.write(media);
 }
 
 void Modello::loadFromFile() {
-    xml xml("../ProgettoOOP/data.xml");
+    xml xml("../Progetto-P2/data.xml");
     media = xml.read();
 }
 

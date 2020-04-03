@@ -4,7 +4,7 @@ MainWindow::MainWindow(QWidget *parent):
 QWidget(parent), vista(new QListWidget(this)), modello(new Modello()), inserimento(new Inserimento(modello,this)),
 img(new QLabel ("",this)), titoloShow(new QLabel ("",this)),genereShow(new QLabel ("",this)), annoDistribuzioneShow(new QLabel ("",this)), formatoShow(new QLabel ("",this)),
 recensioneShow(new QLabel ("",this)), autoreShow(new QLabel ("",this)), casaEditriceShow(new QLabel ("",this)),
-numeroPagineShow(new QLabel ("",this)), registaShow(new QLabel ("",this)), durataFilmShow(new QLabel ("",this)),
+numeroPagineShow(new QLabel ("",this)), narratoreShow(new QLabel ("",this)), registaShow(new QLabel ("",this)), durataFilmShow(new QLabel ("",this)),
 artistaShow(new QLabel ("",this)), numeroTracceShow(new QLabel ("",this)), durataMusicaShow(new QLabel ("",this)),
 searchBar (new QLineEdit (this))
 {
@@ -12,7 +12,7 @@ searchBar (new QLineEdit (this))
     setFixedSize(QSize(750,650));
     setMinimumSize(720,400);
     setMaximumSize(1000,700);
-    setWindowIcon(QIcon("../ProgettoOOP/img/App.png"));
+    setWindowIcon(QIcon("../Progetto-P2/img/App.png"));
     vista->setFixedWidth(300);
 
     load();
@@ -23,7 +23,7 @@ searchBar (new QLineEdit (this))
     QPushButton* modifyButton = new QPushButton("Modifica", this);
     QPushButton* searchButton = new QPushButton ("Cerca",this);
     QPushButton* preferitiButton = new QPushButton ("Mostra solo preferiti",this);
-    preferitiButton->setIcon(QPixmap::fromImage(QImage("../ProgettoOOP/img/Preferiti.png")));
+    preferitiButton->setIcon(QPixmap::fromImage(QImage("../Progetto-P2/img/Preferiti.png")));
     preferitiButton->setIconSize(QSize(32,32));
     QPushButton* durataButton = new QPushButton ("Calcola il tuo intrattenimento totale",this);
     QPushButton* ordineAlfa = new QPushButton ("Ordine alfabetico",this);
@@ -94,6 +94,7 @@ searchBar (new QLineEdit (this))
     autoreShow->setHidden(true);
     casaEditriceShow->setHidden(true);
     numeroPagineShow->setHidden(true);
+    narratoreShow->setHidden(true);
     registaShow->setHidden(true);
     durataFilmShow->setHidden(true);
     artistaShow->setHidden(true);
@@ -108,6 +109,7 @@ searchBar (new QLineEdit (this))
     infos->addWidget(autoreShow);
     infos->addWidget(casaEditriceShow);
     infos->addWidget(numeroPagineShow);
+    infos->addWidget(narratoreShow);
     infos->addWidget(registaShow);
     infos->addWidget(durataFilmShow);
     infos->addWidget(artistaShow);
@@ -123,6 +125,7 @@ searchBar (new QLineEdit (this))
     autoreShow->setAlignment(Qt::AlignHCenter);
     casaEditriceShow->setAlignment(Qt::AlignHCenter);
     numeroPagineShow->setAlignment(Qt::AlignHCenter);
+    narratoreShow->setAlignment(Qt::AlignHCenter);
     registaShow->setAlignment(Qt::AlignHCenter);
     durataFilmShow->setAlignment(Qt::AlignHCenter);
     artistaShow->setAlignment(Qt::AlignHCenter);
@@ -189,14 +192,17 @@ void MainWindow::load()
 
     while(it != modello->end()){
         QIcon icona;
-        if (dynamic_cast<Libro*>(*(it))){
-            icona= QIcon("../ProgettoOOP/img/libro1.png");
+        if (dynamic_cast<Librodigitale*>(*(it))){
+            icona= QIcon("../Progetto-P2/img/libro1.png");
+        }
+        if (dynamic_cast<Audiolibro*>(*(it))){
+            icona= QIcon("../Progetto-P2/img/libro1.png");
         }
         if (dynamic_cast<Film*>(*(it))){
-            icona= QIcon("../ProgettoOOP/img/film1.png");
+            icona= QIcon("../Progetto-P2/img/film1.png");
         }
         if (dynamic_cast<Musica*>(*(it))){
-            icona= QIcon("../ProgettoOOP/img/musica1.png");
+            icona= QIcon("../Progetto-P2/img/musica1.png");
         }
         QString a = QString::fromStdString((*(modello->getElement(cont)))->getTitolo());
         QListWidgetItem* listitem = new QListWidgetItem(a,vista);
@@ -262,23 +268,29 @@ void MainWindow::addItem() {
     else
     {
         QIcon icona;
-        if (inserimento->getScelta()=="Libro"){
-                Libro* item = new Libro(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
+        if (inserimento->getScelta()=="Libro Digitale"){
+                Librodigitale* item = new Librodigitale(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getAutore(),inserimento->getCasaEditrice(),inserimento->getPagine() );
                 modello->aggiungi(item);
-                icona= QIcon("../ProgettoOOP/img/libro1.png");
+                icona= QIcon("../Progetto-P2/img/libro1.png");
+        }
+        if (inserimento->getScelta()=="Audiolibro"){
+                Audiolibro* item = new Audiolibro(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
+                                      inserimento->getAutore(),inserimento->getCasaEditrice(),inserimento->getDurataMusica(),inserimento->getNarratore() );
+                modello->aggiungi(item);
+                icona= QIcon("../Progetto-P2/img/libro1.png");
         }
         if (inserimento->getScelta()=="Film"){
                 Film* item = new Film(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getRegista(),inserimento->getDurataFilm());
                 modello->aggiungi(item);
-                icona= QIcon("../ProgettoOOP/img/film1.png");
+                icona= QIcon("../Progetto-P2/img/film1.png");
         }
         if (inserimento->getScelta()=="Musica"){
                 Musica* item = new Musica(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
-                                          inserimento->getArtista(),inserimento->getNumeroTracce(),inserimento->getDurataMusica() );
+                                          inserimento->getDurataMusica(), inserimento->getArtista(),inserimento->getNumeroTracce() );
                 modello->aggiungi(item);
-                icona= QIcon("../ProgettoOOP/img/musica1.png");
+                icona= QIcon("../Progetto-P2/img/musica1.png");
         }
         QString a = QString::fromStdString((*(modello->getElement(modello->conta()-1)))->getTitolo());
         QListWidgetItem* listitem = new QListWidgetItem(a,vista);
@@ -335,9 +347,9 @@ void MainWindow::showLabel()
             recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore5.png")));
         }
 
-        if (dynamic_cast<Libro*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/libro2.png")));
-            auto cast=dynamic_cast<Libro*>(*selected);
+        if (dynamic_cast<Librodigitale*>(*selected)){
+            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/libro2.png")));
+            auto cast=dynamic_cast<Librodigitale*>(*selected);
             autoreShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
             casaEditriceShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
             numeroPagineShow->setText(QString::fromUtf8("Numero di pagine: ") + QString::number((cast)->getPagine()));
@@ -345,13 +357,34 @@ void MainWindow::showLabel()
             casaEditriceShow->setHidden(false);
             numeroPagineShow->setHidden(false);
         }
-        if (!dynamic_cast<Libro*>(*selected)){
+        if (!dynamic_cast<Librodigitale*>(*selected)){
             autoreShow->setHidden(true);
             casaEditriceShow->setHidden(true);
             numeroPagineShow->setHidden(true);
         }
+
+        if (dynamic_cast<Audiolibro*>(*selected)){
+            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/musica2.png")));
+            auto cast=dynamic_cast<Audiolibro*>(*selected);
+
+            autoreShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
+            casaEditriceShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
+            durataMusicaShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
+            narratoreShow->setText(QString::fromUtf8("Narratore: ") + QString::fromStdString((cast)->getNarratore()));
+            autoreShow->setHidden(false);
+            casaEditriceShow->setHidden(false);
+            durataMusicaShow->setHidden(false);
+            narratoreShow->setHidden(false);
+        }
+        if (!dynamic_cast<Audiolibro*>(*selected)){
+            autoreShow->setHidden(true);
+            casaEditriceShow->setHidden(true);
+            durataMusicaShow->setHidden(true);
+            narratoreShow->setHidden(true);
+        }
+
         if (dynamic_cast<Film*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/film2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/film2.png")));
             auto cast=dynamic_cast<Film*>(*selected);
             registaShow->setText("Regista: " + QString::fromStdString((cast)->getRegista()));
             durataFilmShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
@@ -362,8 +395,9 @@ void MainWindow::showLabel()
             registaShow->setHidden(true);
             durataFilmShow->setHidden(true);
         }
+
         if (dynamic_cast<Musica*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/musica2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/musica2.png")));
             auto cast=dynamic_cast<Musica*>(*selected);
 
             artistaShow->setText("Artista: " + QString::fromStdString((cast)->getArtista()));
@@ -379,6 +413,7 @@ void MainWindow::showLabel()
             durataMusicaShow->setHidden(true);
         }
 
+
     }
     else{
         img->clear();
@@ -390,6 +425,7 @@ void MainWindow::showLabel()
         autoreShow->setText("");
         casaEditriceShow->setText("");
         numeroPagineShow->setText("");
+        narratoreShow->setText("");
         registaShow->setText("");
         durataFilmShow->setText("");
         artistaShow->setText("");

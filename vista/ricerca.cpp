@@ -6,7 +6,8 @@ Ricerca::Ricerca(QListWidget* v, Modello* m, QWidget *parent):QDialog(parent), v
     setWindowTitle(tr("Ricerca personalizzata"));
     setFixedSize(QSize(300,100));
 
-    scelta->addItem("Libri");
+    scelta->addItem("Libro Digitale");
+    scelta->addItem("Audiolibro");
     scelta->addItem("Film");
     scelta->addItem("Musica");
     scelta->setMinimumWidth(250);
@@ -26,19 +27,26 @@ void Ricerca::ricercaPersonalizzata()
 {
     if (scelta->currentIndex()==0){
         for(int i = 0; i < lista->conta(); i++){
-            if(!dynamic_cast<Libro*>((*(lista->getElement(i))))){
+            if(!dynamic_cast<Librodigitale*>((*(lista->getElement(i))))){
                 view->item(i)->setHidden(true);
             }
         }
     }
     if (scelta->currentIndex()==1){
         for(int i = 0; i < lista->conta(); i++){
-            if(!dynamic_cast<Film*>((*(lista->getElement(i))))){
+            if(!dynamic_cast<Audiolibro*>((*(lista->getElement(i))))){
                 view->item(i)->setHidden(true);
             }
         }
     }
     if (scelta->currentIndex()==2){
+        for(int i = 0; i < lista->conta(); i++){
+            if(!dynamic_cast<Film*>((*(lista->getElement(i))))){
+                view->item(i)->setHidden(true);
+            }
+        }
+    }
+    if (scelta->currentIndex()==3){
         for(int i = 0; i < lista->conta(); i++){
             if(!dynamic_cast<Musica*>((*(lista->getElement(i))))){
                 view->item(i)->setHidden(true);

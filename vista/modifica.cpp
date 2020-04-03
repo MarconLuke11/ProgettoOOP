@@ -24,14 +24,14 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     annoDistribuzioneL (new QLabel (QString::fromUtf8("Anno di distribuzione: "),this)), formatoL (new QLabel ("Formato: ",this)),
     recensioneL (new QLabel ("Recensione: ",this)), autoreL (new QLabel ("Autore: ",this)),
     casaEditriceL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
-    registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
+    narratoreL(new QLabel("Narratore: ", this)), registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
     artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-    durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
+    durataMusicaL(new QLabel("Durata file audio (minuti): ", this)),
     titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
     annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
     recensione (new QComboBox (this)), autore (new QLineEdit (this)),
     casaEditrice (new QLineEdit (this)), numeroPagine (new QSpinBox (this)),
-    regista (new QLineEdit (this)), durataFilm (new QSpinBox (this)), artista (new QLineEdit (this)),
+    narratore (new QLineEdit (this)), regista (new QLineEdit (this)), durataFilm (new QSpinBox (this)), artista (new QLineEdit (this)),
     numeroTracce (new QSpinBox (this)), durataMusica (new QSpinBox (this))
 {
     setWindowTitle(tr("Modifica"));
@@ -49,6 +49,7 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     numeroPagine->setMaximumWidth(150);
     numeroPagine->setMaximum(10000);
     //numeroPagine->setSuffix(" pagine");
+    narratore->setMaximumWidth(150);
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);
     durataFilm->setMaximum(300);
@@ -107,6 +108,10 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     numeroPagineLayout->addWidget(numeroPagineL);
     numeroPagineLayout->addWidget(numeroPagine);
 
+    QHBoxLayout* narratoreLayout = new QHBoxLayout();
+    narratoreLayout->addWidget(narratoreL);
+    narratoreLayout->addWidget(narratore);
+
     QHBoxLayout* registaLayout = new QHBoxLayout();
     registaLayout->addWidget(registaL);
     registaLayout->addWidget(regista);
@@ -140,6 +145,7 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     Layout->addLayout(autoreLayout);
     Layout->addLayout(casaEditriceLayout);
     Layout->addLayout(numeroPagineLayout);
+    Layout->addLayout(narratoreLayout);
     Layout->addLayout(registaLayout);
     Layout->addLayout(durataFilmLayout);
     Layout->addLayout(artistaLayout);
@@ -161,11 +167,19 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     formato->setText(QString::fromStdString((item)->getFormato()));
     recensione->setCurrentIndex(((item)->getRecensione()-1));
 
-    if (dynamic_cast<Libro*>(item)){
-        Libro* i=dynamic_cast<Libro*>(item);
+    if (dynamic_cast<Librodigitale*>(item)){
+        Librodigitale* i=dynamic_cast<Librodigitale*>(item);
         autore->setText(QString::fromStdString((i)->getAutore()));
         casaEditrice->setText(QString::fromStdString((i)->getCasaEditrice()));
         numeroPagine->setValue(i->getPagine());
+    }
+
+    if (dynamic_cast<Audiolibro*>(item)){
+        Audiolibro* i=dynamic_cast<Audiolibro*>(item);
+        autore->setText(QString::fromStdString((i)->getAutore()));
+        casaEditrice->setText(QString::fromStdString((i)->getCasaEditrice()));
+        narratore->setText(QString::fromStdString((i)->getNarratore()));
+        durataMusica->setValue(i->getDurata());
     }
 
     if (dynamic_cast<Film*>(item)){
@@ -186,6 +200,8 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     casaEditrice->setVisible(false);
     numeroPagineL->setVisible(false);
     numeroPagine->setVisible(false);
+    narratoreL->setVisible(false);
+    narratore->setVisible(false);
     registaL->setVisible(false);
     regista->setVisible(false);
     durataFilmL->setVisible(false);
@@ -198,7 +214,7 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     durataMusica->setVisible(false);
 
 
-    if (dynamic_cast<Libro*>(item)){
+    if (dynamic_cast<Librodigitale*>(item)){
         autoreL->setVisible(true);
         autore->setVisible(true);
         casaEditriceL->setVisible(true);
@@ -213,6 +229,27 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
         casaEditrice->setVisible(false);
         numeroPagineL->setVisible(false);
         numeroPagine->setVisible(false);
+    }
+
+    if (dynamic_cast<Audiolibro*>(item)){
+        autoreL->setVisible(true);
+        autore->setVisible(true);
+        casaEditriceL->setVisible(true);
+        casaEditrice->setVisible(true);
+        durataMusicaL->setVisible(true);
+        durataMusica->setVisible(true);
+        narratoreL->setVisible(true);
+        narratore->setVisible(true);
+    }
+    else{
+        autoreL->setVisible(false);
+        autore->setVisible(false);
+        casaEditriceL->setVisible(false);
+        casaEditrice->setVisible(false);
+        durataMusicaL->setVisible(false);
+        durataMusica->setVisible(false);
+        narratoreL->setVisible(false);
+        narratore->setVisible(false);
     }
 
     if (dynamic_cast<Film*>(item)){
@@ -274,11 +311,19 @@ void Modifica::modifica()
     item->setAnno(getAnno());
     item->setFormato(getFormato());
 
-    if (dynamic_cast<Libro*>(item)){
-        Libro* i=dynamic_cast<Libro*>(item);
+    if (dynamic_cast<Librodigitale*>(item)){
+        Librodigitale* i=dynamic_cast<Librodigitale*>(item);
         i->setAutore(getAutore());
         i->setCasaEditrice(getCasaEditrice());
         i->setPagine(getPagine());
+    }
+
+    if (dynamic_cast<Audiolibro*>(item)){
+        Audiolibro* i=dynamic_cast<Audiolibro*>(item);
+        i->setAutore(getAutore());
+        i->setCasaEditrice(getCasaEditrice());
+        i->setDurata(getDurataMusica());
+        i->setNarratore(getNarratore());
     }
 
     if (dynamic_cast<Film*>(item)){
@@ -317,6 +362,7 @@ void Modifica::reset() const
     autore->setText("");
     casaEditrice->setText("");
     numeroPagine->setValue(0);
+    narratore->setText("");
     regista->setText("");
     durataFilm->setValue(0);
     artista->setText("");
@@ -370,6 +416,11 @@ std::string Modifica::getCasaEditrice() const
 unsigned int Modifica::getPagine() const
 {
     return numeroPagine->text().toUInt();
+}
+
+std::string Modifica::getNarratore() const
+{
+    return narratore->text().toStdString();
 }
 
 std::string Modifica::getRegista() const

@@ -29,6 +29,7 @@ private:
     QLabel* autoreL;
     QLabel* casaEditriceL;
     QLabel* numeroPagineL;
+    QLabel* narratoreL;
     QLabel* registaL;
     QLabel* durataFilmL;
     QLabel* artistaL;
@@ -43,6 +44,7 @@ private:
     QLineEdit* autore;
     QLineEdit* casaEditrice;
     QSpinBox* numeroPagine;
+    QLineEdit* narratore;
     QLineEdit* regista;
     QSpinBox* durataFilm;
     QLineEdit* artista;
@@ -60,6 +62,7 @@ public:
     std::string getAutore() const;
     std::string getCasaEditrice() const;
     unsigned int getPagine() const;
+    std::string getNarratore() const;
     std::string getRegista() const;
     unsigned int getDurataFilm() const;
     std::string getArtista() const;

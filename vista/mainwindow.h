@@ -25,9 +25,10 @@
 #include "about.h"
 #include "sviluppo.h"
 #include "ricerca.h"
+#include "modello/audiolibro.h"
 #include "modello/container.h"
-#include "modello/libro.h"
 #include "modello/film.h"
+#include "modello/librodigitale.h"
 #include "modello/musica.h"
 
 
@@ -49,6 +50,7 @@ private:
     QLabel* autoreShow;
     QLabel* casaEditriceShow;
     QLabel* numeroPagineShow;
+    QLabel* narratoreShow;
     QLabel* registaShow;
     QLabel* durataFilmShow;
     QLabel* artistaShow;
