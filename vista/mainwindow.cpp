@@ -3,8 +3,9 @@
 MainWindow::MainWindow(QWidget *parent):
 QWidget(parent), vista(new QListWidget(this)), modello(new Modello()), inserimento(new Inserimento(modello,this)),
 img(new QLabel ("",this)), titoloShow(new QLabel ("",this)),genereShow(new QLabel ("",this)), annoDistribuzioneShow(new QLabel ("",this)), formatoShow(new QLabel ("",this)),
-recensioneShow(new QLabel ("",this)), autoreShow(new QLabel ("",this)), casaEditriceShow(new QLabel ("",this)),
-numeroPagineShow(new QLabel ("",this)), narratoreShow(new QLabel ("",this)), registaShow(new QLabel ("",this)), durataFilmShow(new QLabel ("",this)),
+recensioneShow(new QLabel ("",this)), autoreLDShow(new QLabel ("",this)), casaEditriceLDShow(new QLabel ("",this)),
+numeroPagineShow(new QLabel ("",this)), autoreALShow(new QLabel ("",this)), casaEditriceALShow(new QLabel ("",this)),
+durataALShow(new QLabel ("",this)), narratoreShow(new QLabel ("",this)), registaShow(new QLabel ("",this)), durataFilmShow(new QLabel ("",this)),
 artistaShow(new QLabel ("",this)), numeroTracceShow(new QLabel ("",this)), durataMusicaShow(new QLabel ("",this)),
 searchBar (new QLineEdit (this))
 {
@@ -91,9 +92,12 @@ searchBar (new QLineEdit (this))
 
     //implementando il display() tutto ciò che segue puo essere compattato in un'unica funzione
     QVBoxLayout* infos = new QVBoxLayout();
-    autoreShow->setHidden(true);
-    casaEditriceShow->setHidden(true);
+    autoreLDShow->setHidden(true);
+    casaEditriceLDShow->setHidden(true);
     numeroPagineShow->setHidden(true);
+    autoreALShow->setHidden(true);
+    casaEditriceALShow->setHidden(true);
+    durataALShow->setHidden(true);
     narratoreShow->setHidden(true);
     registaShow->setHidden(true);
     durataFilmShow->setHidden(true);
@@ -106,9 +110,12 @@ searchBar (new QLineEdit (this))
     infos->addWidget(genereShow);
     infos->addWidget(annoDistribuzioneShow);
     infos->addWidget(formatoShow);    
-    infos->addWidget(autoreShow);
-    infos->addWidget(casaEditriceShow);
+    infos->addWidget(autoreLDShow);
+    infos->addWidget(casaEditriceLDShow);
     infos->addWidget(numeroPagineShow);
+    infos->addWidget(autoreALShow);
+    infos->addWidget(casaEditriceALShow);
+    infos->addWidget(durataALShow);
     infos->addWidget(narratoreShow);
     infos->addWidget(registaShow);
     infos->addWidget(durataFilmShow);
@@ -122,9 +129,12 @@ searchBar (new QLineEdit (this))
     annoDistribuzioneShow->setAlignment(Qt::AlignHCenter);
     formatoShow->setAlignment(Qt::AlignHCenter);
     recensioneShow->setAlignment(Qt::AlignHCenter);
-    autoreShow->setAlignment(Qt::AlignHCenter);
-    casaEditriceShow->setAlignment(Qt::AlignHCenter);
+    autoreLDShow->setAlignment(Qt::AlignHCenter);
+    casaEditriceLDShow->setAlignment(Qt::AlignHCenter);
     numeroPagineShow->setAlignment(Qt::AlignHCenter);
+    autoreALShow->setAlignment(Qt::AlignHCenter);
+    casaEditriceALShow->setAlignment(Qt::AlignHCenter);
+    durataALShow->setAlignment(Qt::AlignHCenter);
     narratoreShow->setAlignment(Qt::AlignHCenter);
     registaShow->setAlignment(Qt::AlignHCenter);
     durataFilmShow->setAlignment(Qt::AlignHCenter);
@@ -196,7 +206,7 @@ void MainWindow::load()
             icona= QIcon("../Progetto-P2/img/libro1.png");
         }
         if (dynamic_cast<Audiolibro*>(*(it))){
-            icona= QIcon("../Progetto-P2/img/libro1.png");
+            icona= QIcon("../Progetto-P2/img/audiobook1.png");
         }
         if (dynamic_cast<Film*>(*(it))){
             icona= QIcon("../Progetto-P2/img/film1.png");
@@ -278,7 +288,7 @@ void MainWindow::addItem() {
                 Audiolibro* item = new Audiolibro(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getAutoreAL(),inserimento->getCasaEditriceAL(),inserimento->getDurataAL(),inserimento->getNarratore() );
                 modello->aggiungi(item);
-                icona= QIcon("../Progetto-P2/img/libro1.png");
+                icona= QIcon("../Progetto-P2/img/audiobook1.png");
         }
         if (inserimento->getScelta()=="Film"){
                 Film* item = new Film(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
@@ -350,36 +360,36 @@ void MainWindow::showLabel()
         if (dynamic_cast<Librodigitale*>(*selected)){
             img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/libro2.png")));
             auto cast=dynamic_cast<Librodigitale*>(*selected);
-            autoreShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
-            casaEditriceShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
+            autoreLDShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
+            casaEditriceLDShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
             numeroPagineShow->setText(QString::fromUtf8("Numero di pagine: ") + QString::number((cast)->getPagine()));
-            autoreShow->setHidden(false);
-            casaEditriceShow->setHidden(false);
+            autoreLDShow->setHidden(false);
+            casaEditriceLDShow->setHidden(false);
             numeroPagineShow->setHidden(false);
         }
         if (!dynamic_cast<Librodigitale*>(*selected)){
-            autoreShow->setHidden(true);
-            casaEditriceShow->setHidden(true);
+            autoreLDShow->setHidden(true);
+            casaEditriceLDShow->setHidden(true);
             numeroPagineShow->setHidden(true);
         }
 
         if (dynamic_cast<Audiolibro*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/musica2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/audiobook2.png")));
             auto cast=dynamic_cast<Audiolibro*>(*selected);
 
-            autoreShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
-            casaEditriceShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
-            durataMusicaShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
+            autoreALShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
+            casaEditriceALShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
+            durataALShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
             narratoreShow->setText(QString::fromUtf8("Narratore: ") + QString::fromStdString((cast)->getNarratore()));
-            autoreShow->setHidden(false);
-            casaEditriceShow->setHidden(false);
-            durataMusicaShow->setHidden(false);
+            autoreALShow->setHidden(false);
+            casaEditriceALShow->setHidden(false);
+            durataALShow->setHidden(false);
             narratoreShow->setHidden(false);
         }
         if (!dynamic_cast<Audiolibro*>(*selected)){
-            autoreShow->setHidden(true);
-            casaEditriceShow->setHidden(true);
-            durataMusicaShow->setHidden(true);
+            autoreALShow->setHidden(true);
+            casaEditriceALShow->setHidden(true);
+            durataALShow->setHidden(true);
             narratoreShow->setHidden(true);
         }
 
@@ -422,9 +432,12 @@ void MainWindow::showLabel()
         annoDistribuzioneShow->setText("");
         formatoShow->setText("");
         recensioneShow->setText("");
-        autoreShow->setText("");
-        casaEditriceShow->setText("");
+        autoreLDShow->setText("");
+        casaEditriceLDShow->setText("");
         numeroPagineShow->setText("");
+        autoreALShow->setText("");
+        casaEditriceALShow->setText("");
+        durataALShow->setText("");
         narratoreShow->setText("");
         registaShow->setText("");
         durataFilmShow->setText("");

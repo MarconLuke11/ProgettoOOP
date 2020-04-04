@@ -47,9 +47,12 @@ private:
     QLabel* annoDistribuzioneShow;
     QLabel* formatoShow;
     QLabel* recensioneShow;
-    QLabel* autoreShow;
-    QLabel* casaEditriceShow;
+    QLabel* autoreLDShow;
+    QLabel* casaEditriceLDShow;
     QLabel* numeroPagineShow;
+    QLabel* autoreALShow;
+    QLabel* casaEditriceALShow;
+    QLabel* durataALShow;
     QLabel* narratoreShow;
     QLabel* registaShow;
     QLabel* durataFilmShow;

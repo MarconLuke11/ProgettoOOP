@@ -20,10 +20,10 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
                          recensioneL (new QLabel ("Recensione: ",this)), autoreLDL (new QLabel ("Autore: ",this)),
                          casaEditriceLDL (new QLabel ("Casa editrice: ",this)), numeroPagineL(new QLabel("Numero di pagine: ", this)),
                          autoreALL (new QLabel ("Autore: ",this)), casaEditriceALL (new QLabel ("Casa editrice: ",this)),
-                         durataALL(new QLabel("Durata file audio (minuti): ", this)),
+                         durataALL(new QLabel("Durata audiolibro (minuti): ", this)),
                          narratoreL(new QLabel("Narratore: ", this)), registaL(new QLabel("Regista: ", this)), durataFilmL(new QLabel("Durata del film (minuti): ", this)),
                          artistaL(new QLabel("Artista: ", this)), numeroTracceL(new QLabel("Numero di tracce: ", this)),
-                         durataMusicaL(new QLabel("Durata file audio (minuti): ", this)),
+                         durataMusicaL(new QLabel("Durata musica (minuti): ", this)),
                          titolo (new QLineEdit (this)),genere (new QLineEdit (this)),
                          annoDistribuzione (new QSpinBox (this)), formato (new QLineEdit (this)),
                          recensione (new QComboBox (this)), autoreLD (new QLineEdit (this)),
@@ -53,6 +53,7 @@ Inserimento::Inserimento(Modello *m, QWidget *parent) : QDialog(parent),modello(
     casaEditriceAL->setMaximumWidth(150);
     durataAL->setMaximumWidth(150);
     durataAL->setMaximum(300);
+    //durataAL->setSuffix(" minuti");
     narratore->setMaximumWidth(150);
     regista->setMaximumWidth(150);
     durataFilm->setMaximumWidth(150);

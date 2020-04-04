@@ -15,5 +15,10 @@
         <file>img/musica2.png</file>
         <file>img/Preferiti.png</file>
         <file>img/Qt.png</file>
+        <file>img/audiobook1.png</file>
+        <file>img/audiobook2.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>img/audiobook1.png</file>
     </qresource>
 </RCC>
