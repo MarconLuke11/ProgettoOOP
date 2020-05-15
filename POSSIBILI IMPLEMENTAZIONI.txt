@@ -5,11 +5,6 @@ l'ideale è implementare un metodo poimorfo getTipo() in MediaItem, definirlo pe
 
 -trovare un modo per fare refreshare automaticamente la barra di ricerca quando si scrivono o si cancellano lettere dalla barra, in modo che sia sempre aggiornata, senza dover premere CERCA ogni volta
 
--sistemare anche altre preferenze nella ricerca, includento anche "parti" di parola, non solo iniziale ma anche metà o fine di una parola (al momento se voglio cercare Cane posso scrivere solo C,Ca,Can o Cane, non funziona con ane,an,ne eccetera). -> bisogna lavorare sulla regex in MainWindow::textFilterChanged()
-
--salvataggio su file esterno(come txt o pdf) / caricamento da file esterno(txt, pdf..)
-come si fa? cercare. dopodichè si può implementare una finestra specifica dal menu (in mainwindow->menuBar e menu/menu2, oltre a fare una connect apposita e un metodo che la apra)
-
 -come ultima cosa bisogna provare a compilare ed eseguire nello stesso modo del prof (con qmake e make) e vedere se dà problemi, oltre a verificare che file css e immagini vengano caricate (la cartella deve mantenere il nome Progetto-P2 oppure, se modificato, bisogna modificare in tutti i file della vista)
 
 -"riempire" il container con qualche altro oggetto, perchè al momento non ci sono audiolibri
