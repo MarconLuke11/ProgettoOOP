@@ -1,8 +1,5 @@
 POSSIBILI SVILUPPI:
 
--quando fai click sopra a un oggetto della lista, oltre ai campi dati e l'immagine ti dice anche il TIPO (cioè audiolibro, librodigitale, film o musica):
-l'ideale è implementare un metodo poimorfo getTipo() in MediaItem, definirlo per ogni classe figlia; per usarlo poi andare in mainwindow -> showLabel()
-
 -trovare un modo per fare refreshare automaticamente la barra di ricerca quando si scrivono o si cancellano lettere dalla barra, in modo che sia sempre aggiornata, senza dover premere CERCA ogni volta
 
 -come ultima cosa bisogna provare a compilare ed eseguire nello stesso modo del prof (con qmake e make) e vedere se dà problemi, oltre a verificare che file css e immagini vengano caricate (la cartella deve mantenere il nome Progetto-P2 oppure, se modificato, bisogna modificare in tutti i file della vista)
