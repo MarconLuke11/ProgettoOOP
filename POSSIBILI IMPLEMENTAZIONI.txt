@@ -1,5 +1,9 @@
 POSSIBILI SVILUPPI:
 
+- exception handling: 
+1. apertura file da filesystem
+2. lavorare con il contenitore vuoto 
+
 -come ultima cosa bisogna provare a compilare ed eseguire nello stesso modo del prof (con qmake e make) e vedere se dà problemi, oltre a verificare che file css e immagini vengano caricate (la cartella deve mantenere il nome Progetto-P2 oppure, se modificato, bisogna modificare in tutti i file della vista)
 
 -"riempire" il container con qualche altro oggetto, perchè al momento non ci sono audiolibri
