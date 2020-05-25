@@ -338,16 +338,6 @@ void MainWindow::addItem() {
         if((*(modello->getElement(modello->conta()-1)))->getRecensione()==5)
             listitem->setBackgroundColor(QColor(152,251,152));
         vista->addItem(listitem);
-        std::cout<<"con dimensione: "<<modello->conta()<<"\n";
-        for (auto it = modello->begin();it!=modello->end();it++)
-            std::cout<<" "<<((*(it))->getTitolo());
-        std::cout<<"\n";
-        for (auto it = modello->getElement(modello->conta()-1);it!=modello->begin();it--)
-            std::cout<<" "<<((*(it))->getTitolo());
-        auto t= *(modello->getElement(0));
-        std::cout<<" "<<t->getTitolo();
-        std::cout<<" \n";
-
         inserimento->hide();
     }
 
