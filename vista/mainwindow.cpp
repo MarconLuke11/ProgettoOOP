@@ -543,15 +543,11 @@ void MainWindow::textFilterChanged(){
     if (searchBar->text()!=""){
         std::string c = searchBar->text().toStdString();
         std::regex rx("[a-zA-Z0-9&$&+,:;=?@#|'<>.-^*()%!_]*" + c + "[a-zA-Z0-9&$&+,:;=?@#|'<>.-^*()%!_]*", std::regex_constants::icase);
-        //vista->setHidden(true);
 
         for(int i = 0; i < modello->conta(); i++){
             std::string x = modello->getElement(i).operator*()->getTitolo();
-            std::cout<<x<<"\n";
             std::string::iterator end_pos = std::remove(x.begin(), x.end(), ' ');
             x.erase(end_pos, x.end());
-            std::cout<<x<<"\n";
-            //QString exp = QString::fromStdString(x);
             if(!std::regex_match(x,rx)){
                 vista->item(i)->setHidden(true);
             }
