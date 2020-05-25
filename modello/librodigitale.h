@@ -17,6 +17,8 @@ public:
 
     void setPagine(const unsigned int&);
 
+    virtual string getTipo() const override;
+
     virtual bool operator==(const MediaItem&) const override;
     virtual bool operator!=(const MediaItem&) const override;
 };

@@ -7,10 +7,10 @@ Audiolibro::Audiolibro(string tit, string gen, unsigned int anno, string form, u
 string Audiolibro::info() const
 {
     string stream;
-    stream = MediaItem::info();
+    stream = Libro::info() + Fileaudio::info();
     std::stringstream value;
-    value << std::fixed << std::setprecision(5) << narratore;
-    stream += "\nTipo: Libro\nAutore: " +  value.str();
+    value << std::fixed << narratore;
+    stream += "\nTipo: Audiolibro\nNarratore: " +  value.str();
     return stream;
 }
 
@@ -28,6 +28,11 @@ string Audiolibro::getNarratore() const
 void Audiolibro::setNarratore(const string& m)
 {
     narratore=m;
+}
+
+string Audiolibro::getTipo() const
+{
+    return "Audiolibro";
 }
 
 bool Audiolibro::operator==(const MediaItem& a) const

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent):
-QWidget(parent), vista(new QListWidget(this)), modello(new Modello()), inserimento(new Inserimento(modello,this)),
-img(new QLabel ("",this)), titoloShow(new QLabel ("",this)),genereShow(new QLabel ("",this)), annoDistribuzioneShow(new QLabel ("",this)), formatoShow(new QLabel ("",this)),
+QWidget(parent), vista(new QListWidget(this)), modello(new Modello()), inserimento(new Inserimento(modello,this)), fileName(QString()),
+img(new QLabel ("",this)), tipoShow(new QLabel ("",this)),titoloShow(new QLabel ("",this)),genereShow(new QLabel ("",this)), annoDistribuzioneShow(new QLabel ("",this)), formatoShow(new QLabel ("",this)),
 recensioneShow(new QLabel ("",this)), autoreLDShow(new QLabel ("",this)), casaEditriceLDShow(new QLabel ("",this)),
 numeroPagineShow(new QLabel ("",this)), autoreALShow(new QLabel ("",this)), casaEditriceALShow(new QLabel ("",this)),
 durataALShow(new QLabel ("",this)), narratoreShow(new QLabel ("",this)), registaShow(new QLabel ("",this)), durataFilmShow(new QLabel ("",this)),
@@ -10,19 +10,19 @@ artistaShow(new QLabel ("",this)), numeroTracceShow(new QLabel ("",this)), durat
 searchBar (new QLineEdit (this))
 {
     setWindowTitle(tr("Media Qllection"));
-    setFixedSize(QSize(750,650));
+    setFixedSize(QSize(750,750));
     setMinimumSize(720,400);
-    setMaximumSize(1000,700);
+    setMaximumSize(1200,1000);
     setWindowIcon(QIcon("../Progetto-P2/img/App.png"));
     vista->setFixedWidth(300);
 
-    load();
+    loadBackup();
     //aggiunta bottoni
     QPushButton* addButton = new QPushButton("Aggiungi", this);
     QPushButton* removeButton = new QPushButton("Rimuovi", this);
     QPushButton* clearButton = new QPushButton("Rimuovi tutto", this);
     QPushButton* modifyButton = new QPushButton("Modifica", this);
-    QPushButton* searchButton = new QPushButton ("Cerca",this);
+    QPushButton* searchButton = new QPushButton ("Cerca...",this);
     QPushButton* preferitiButton = new QPushButton ("Mostra solo preferiti",this);
     preferitiButton->setIcon(QPixmap::fromImage(QImage("../Progetto-P2/img/Preferiti.png")));
     preferitiButton->setIconSize(QSize(32,32));
@@ -31,13 +31,15 @@ searchBar (new QLineEdit (this))
     searchButton->setObjectName("searchButton");    
     QPushButton* search2Button = new QPushButton ("Ricerca personalizzata",this);
     QPushButton* resetSearchButton = new QPushButton ("Reset filtri",this);
-    searchBar->setPlaceholderText(QString::fromStdString("Inserisci il titolo da cercare, poi tasto Cerca oppure Invio"));
+    searchBar->setPlaceholderText(QString::fromStdString("Inserisci il titolo da cercare"));
     searchBar->setObjectName("searchBar");
 
     //creo il menu
     QMenuBar* menuBar = new QMenuBar(this);
     QMenu* menu = new QMenu("File", menuBar);
     QMenu* menu2 = new QMenu("Help", menuBar);
+    QAction* open = new QAction("Apri", menu);
+    QAction* saveAs = new QAction("Salva con nome", menu);
     QAction* save = new QAction("Salva", menu);
     QAction* exit = new QAction("Esci", menu);
     QAction* about = new QAction("About",menu);
@@ -46,15 +48,18 @@ searchBar (new QLineEdit (this))
     //assemblo gli elementi del menu
     menuBar->addMenu(menu);
     menuBar->addMenu(menu2);
+    menu->addAction(open);
     menu->addAction(save);
+    menu->addAction(saveAs);
     menu->addAction(exit);
     menu2->addAction(about);
     menu2->addAction(sviluppo);
 
     //aggiunta barra di ricerca
     QHBoxLayout* search = new QHBoxLayout();
-    search->addWidget(searchBar);
     search->addWidget(searchButton);
+    search->addWidget(searchBar);
+
 
     //aggiunta bottone di ricerca
     QHBoxLayout* searchB = new QHBoxLayout();
@@ -106,6 +111,7 @@ searchBar (new QLineEdit (this))
     durataMusicaShow->setHidden(true);
     infos->addWidget(img);
     infos->addSpacerItem(new QSpacerItem(0, 20));
+    infos->addWidget(tipoShow);
     infos->addWidget(titoloShow);
     infos->addWidget(genereShow);
     infos->addWidget(annoDistribuzioneShow);
@@ -124,6 +130,7 @@ searchBar (new QLineEdit (this))
     infos->addWidget(durataMusicaShow);
     infos->addWidget(recensioneShow);
     img->setAlignment(Qt::AlignHCenter);
+    tipoShow->setAlignment(Qt::AlignHCenter);
     titoloShow->setAlignment(Qt::AlignHCenter);
     genereShow->setAlignment(Qt::AlignHCenter);
     annoDistribuzioneShow->setAlignment(Qt::AlignHCenter);
@@ -143,6 +150,7 @@ searchBar (new QLineEdit (this))
     durataMusicaShow->setAlignment(Qt::AlignHCenter);
 
     titoloShow->setObjectName("titolo");
+    tipoShow->setObjectName("tipo");
 
     QVBoxLayout* fourthLayout = new QVBoxLayout();
     QVBoxLayout* thirdLayout = new QVBoxLayout();
@@ -160,13 +168,15 @@ searchBar (new QLineEdit (this))
     buttons->addLayout(buttons3);
     buttons->addLayout(buttons4);
     thirdLayout->addLayout(search);
-    thirdLayout->addLayout(searchB);    
+    thirdLayout->addLayout(searchB);
     thirdLayout->addLayout(preferitiB);
     thirdLayout->addLayout(spazioB);
     thirdLayout->addLayout(infos);
     thirdLayout->addLayout(spazio2B);
     mainLayout->addLayout(fourthLayout);
     fourthLayout->addLayout(buttons);
+
+    QString s="proviamo";
 
     connect(addButton,SIGNAL(clicked()),this,SLOT(openInsert()));
     connect(removeButton,SIGNAL(clicked()),this,SLOT(removeItem()));
@@ -175,8 +185,9 @@ searchBar (new QLineEdit (this))
     connect(durataButton,SIGNAL(clicked()),this,SLOT(openDurata()));
     connect(inserimento,SIGNAL(inserisciClicked()), this, SLOT(addItem()));
     connect(vista,SIGNAL(itemSelectionChanged()),this,SLOT(showLabel()));
-    connect(searchButton,SIGNAL(clicked()), this, SLOT(textFilterChanged()));
+    //connect(searchButton,SIGNAL(clicked()), this, SLOT(textFilterChanged()));
     connect(searchBar,SIGNAL(returnPressed()), this, SLOT(textFilterChanged()));
+    connect(searchBar,SIGNAL(textChanged(const QString &)), this, SLOT(textFilterChanged()));
     connect(search2Button,SIGNAL(clicked()), this, SLOT(openSearch()));
     connect(resetSearchButton, SIGNAL(clicked()), this, SLOT(resetSearch()));
     connect(preferitiButton, SIGNAL(clicked()), this, SLOT(openPreferiti()));
@@ -186,6 +197,9 @@ searchBar (new QLineEdit (this))
     connect(sviluppo, SIGNAL(triggered(bool)), this, SLOT(sviluppo()));
     connect(ordineAlfa,SIGNAL(clicked(bool)),this,SLOT(ordineAlfa()));
     connect(exit,SIGNAL(triggered(bool)),this,SLOT(close()));
+
+    connect(open, SIGNAL(triggered(bool)), this, SLOT(loadFromFile()));
+    connect(saveAs, SIGNAL(triggered(bool)), this, SLOT(saveAsData()));
 }
 
 MainWindow::~MainWindow()
@@ -193,9 +207,11 @@ MainWindow::~MainWindow()
     if(modello) delete modello;
 }
 
-void MainWindow::load()
+void MainWindow::loadBackup()
 {
-    modello->loadFromFile();
+    fileName="../Progetto-P2/data.xml";
+    setWindowTitle("Media Qllection - " + QFileInfo(fileName).fileName());
+    modello->loadFromFile(fileName.toStdString());
 
     Container<MediaItem*>::iteratore it = modello->begin();
     int cont=0;
@@ -261,9 +277,18 @@ void MainWindow::openPreferiti()
 
 void MainWindow::openDurata()
 {
+    if(modello->conta()==0)
+    {
+        QMessageBox error;
+        error.critical(this,"Errore","La lista è vuota, non è possibile calcolare l'intrattenimento totale");
+        error.setFixedSize(300,100);
+    }
+    else
+    {
     DurataTotale* durata = new DurataTotale(modello,this);
     durata->setObjectName("durataWindow");
     durata->exec();
+    }
 }
 
 void MainWindow::addItem() {
@@ -336,6 +361,7 @@ void MainWindow::showLabel()
             index=modello->conta()-1;
         Container<MediaItem*>::iteratore selected = modello->getElement(index);
 
+        tipoShow->setText(QString::fromStdString((*(selected))->getTipo()));
         titoloShow->setText(QString::fromUtf8("Titolo: ") + QString::fromStdString((*(selected))->getTitolo()));
         genereShow->setText(QString::fromUtf8("Genere: ") + QString::fromStdString((*(selected))->getGenere()));
         annoDistribuzioneShow->setText(QString::fromUtf8("Anno di distribuzione: ") + QString::number((*(selected))->getAnno()));
@@ -473,6 +499,8 @@ void MainWindow::removeAllItem()
     if (modello->conta()>0){
         modello->rimuoviTutto();
         vista->clear();
+        recensioneShow->clear();
+        tipoShow->clear();
     }
     else
     {
@@ -484,38 +512,51 @@ void MainWindow::removeAllItem()
 
 void MainWindow::openModify()
 {
-    if (vista->selectedItems().size()>0){
-        int i=vista->currentRow();
-        Modifica* modifica = new Modifica(modello,i,vista,this);
-        modifica->setObjectName("modifyWindow");
-        modifica->exec();
+    if(modello->conta()==0)
+    {
+        QMessageBox error;
+        error.critical(this,"Errore","La lista è vuota, non ci sono elementi da modificare");
+        error.setFixedSize(300,100);
     }
     else
     {
-        QMessageBox error;
-        error.critical(this,"Errore","Non è stato selezionato alcun elemento.");
-        error.setFixedSize(300,100);
+        if (vista->selectedItems().size()>0)
+        {
+            int i=vista->currentRow();
+            Modifica* modifica = new Modifica(modello,i,vista,this);
+            modifica->setObjectName("modifyWindow");
+            modifica->exec();
+        }
+        else
+        {
+            QMessageBox error;
+            error.critical(this,"Errore","Non è stato selezionato alcun elemento.");
+            error.setFixedSize(300,100);
+        }
     }
 }
 
 void MainWindow::textFilterChanged(){
+    for(int i = 0; i < modello->conta(); i++){
+        vista->item(i)->setHidden(false);
+    }
     if (searchBar->text()!=""){
         std::string c = searchBar->text().toStdString();
-        std::regex rx("[a-zA-Z]*" + c + "[a-zA-Z]*", std::regex_constants::icase);
+        std::regex rx("[a-zA-Z0-9&$&+,:;=?@#|'<>.-^*()%!_]*" + c + "[a-zA-Z0-9&$&+,:;=?@#|'<>.-^*()%!_]*", std::regex_constants::icase);
+        //vista->setHidden(true);
+
         for(int i = 0; i < modello->conta(); i++){
             std::string x = modello->getElement(i).operator*()->getTitolo();
-            QString exp = QString::fromStdString(x);
+            std::cout<<x<<"\n";
+            std::string::iterator end_pos = std::remove(x.begin(), x.end(), ' ');
+            x.erase(end_pos, x.end());
+            std::cout<<x<<"\n";
+            //QString exp = QString::fromStdString(x);
             if(!std::regex_match(x,rx)){
                 vista->item(i)->setHidden(true);
             }
         }
     }
-    else {
-        QMessageBox error;
-        error.critical(this,"Errore","Non è stata inserita alcuna chiave di ricerca");
-        error.setFixedSize(300,100);
-    }
-
 }
 
 void MainWindow::resetSearch()
@@ -526,20 +567,89 @@ void MainWindow::resetSearch()
     }
 }
 
+void MainWindow::loadFromFile(){
+
+    fileName = QFileDialog::getOpenFileName(this,
+                                            tr("Load from a file"), "",
+                                            tr("XML (*.xml)"));
+    if(!fileName.isEmpty()){
+        modello->rimuoviTutto();
+        vista->clear();
+        recensioneShow->clear();
+        tipoShow->clear();
+        setWindowTitle("Media Qllection - " + QFileInfo(fileName).fileName());
+        modello->loadFromFile(fileName.toStdString());
+
+        Container<MediaItem*>::iteratore it = modello->begin();
+        int cont=0;
+
+        while(it != modello->end()){
+            QIcon icona;
+            if (dynamic_cast<Librodigitale*>(*(it))){
+                icona= QIcon("../Progetto-P2/img/libro1.png");
+            }
+            if (dynamic_cast<Audiolibro*>(*(it))){
+                icona= QIcon("../Progetto-P2/img/audiobook1.png");
+            }
+            if (dynamic_cast<Film*>(*(it))){
+                icona= QIcon("../Progetto-P2/img/film1.png");
+            }
+            if (dynamic_cast<Musica*>(*(it))){
+                icona= QIcon("../Progetto-P2/img/musica1.png");
+            }
+            QString a = QString::fromStdString((*(modello->getElement(cont)))->getTitolo());
+            QListWidgetItem* listitem = new QListWidgetItem(a,vista);
+            listitem->setTextAlignment(Qt::AlignCenter);
+            listitem->setIcon(icona);
+            if((*(modello->getElement(cont)))->getRecensione()==1)
+                listitem->setBackground(QColor(255,160,122));
+            if((*(modello->getElement(cont)))->getRecensione()==2)
+                listitem->setBackground(QColor(255,255,255));
+            if((*(modello->getElement(cont)))->getRecensione()==3)
+                listitem->setBackground(QColor(255,255,255));
+            if((*(modello->getElement(cont)))->getRecensione()==4)
+                listitem->setBackground(QColor(152,251,152));
+            if((*(modello->getElement(cont)))->getRecensione()==5)
+                listitem->setBackground(QColor(152,251,152));
+
+            vista->addItem(listitem);
+            cont++;
+            it++;
+    }
+    }
+}
+
 void MainWindow::save()
 {
+    if(!fileName.isEmpty()){
     try {
-        if (modello->conta()>0)
-            modello->saveToFile();
+        if (modello->conta()>=0) //scelta progettuale: l'utente può salvare anche il contenitore vuoto
+            modello->saveToFile(fileName.toStdString());
         else{
             QMessageBox error;
-            error.critical(this,"Errore","Salvare un file contenente almeno un elemento");
+            error.critical(this,"Errore","Errore nel salvataggio del file");
             error.setFixedSize(300,100);
         }
     }
     catch (std::exception) {
         QMessageBox box(QMessageBox::Warning, "Errore di salvataggio", "Impossibile scrivere sul file", QMessageBox::Ok);
         box.exec();
+    }
+    }
+}
+
+void MainWindow::saveAsData() {
+    fileName = QFileDialog::getSaveFileName(this,
+                                            tr("Save to a file"), "",
+                                            tr("XML (*.xml);;All Files (*)"));
+    if(!fileName.isEmpty()){
+        setWindowTitle("Media Qllection - " + QFileInfo(fileName).fileName());
+        try {
+            modello->saveToFile(fileName.toStdString());
+        } catch (std::exception) {
+            QMessageBox box(QMessageBox::Warning, "Errore di salvataggio", "Impossibile scrivere sul file", QMessageBox::Ok);
+            box.exec();
+        }
     }
 }
 
@@ -559,8 +669,21 @@ void MainWindow::sviluppo()
 
 void MainWindow::ordineAlfa()
 {
+    if(modello->conta()==0)
+    {
+        QMessageBox error;
+        error.critical(this,"Errore","La lista è vuota, non ci sono elementi da ordinare");
+        error.setFixedSize(300,100);
+    }
+    else
+    {
         vista->sortItems();
         modello->ordAlfa();
+        QMessageBox* ordinato = new QMessageBox(this);
+        ordinato->setText("La lista è stata ordinata alfabeticamente!");
+        ordinato->exec();
+
+    }
 }
 
 void MainWindow::salvato(){

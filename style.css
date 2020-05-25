@@ -14,6 +14,11 @@ QLabel{
         font-weight: bold;
 }
 
+#tipo{
+        font-weight: bold;
+        font-size:16px;
+}
+
 QListWidget{
         border: 0px solid black;
 }

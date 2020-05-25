@@ -6,7 +6,7 @@ Musica::Musica(string tit, string gen, unsigned int anno, string form, unsigned 
 string Musica::info() const
 {
     string stream;
-    stream = MediaItem::info();
+    stream = Fileaudio::info();
     std::stringstream value;
     value << std::fixed << std::setprecision(3) << numeroTracce;
     stream += "\nTipo: Musica\nArtista: " + artista + "\nNumero di tracce: " + value.str();
@@ -37,6 +37,11 @@ void Musica::setArtista(const string& m)
 void Musica::setNumeroTracce(const unsigned int& m)
 {
     numeroTracce=m;
+}
+
+string Musica::getTipo() const
+{
+    return "Musica";
 }
 
 bool Musica::operator==(const MediaItem& a) const

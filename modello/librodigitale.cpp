@@ -7,10 +7,10 @@ Librodigitale::Librodigitale(string tit, string gen, unsigned int anno, string f
 string Librodigitale::info() const
 {
     string stream;
-    stream = MediaItem::info();
+    stream = Libro::info();
     std::stringstream value;
     value << std::fixed << std::setprecision(5) << numeroPagine;
-    stream += "\nTipo: Libro\nAutore: " + this->getAutore() + "\nCasa Editrice: " + this->getCasaEditrice() + "\nNumero di pagine: " + value.str();
+    stream += "\nNumero di pagine: " + value.str();
     return stream;
 }
 
@@ -30,6 +30,11 @@ unsigned int Librodigitale::getPagine() const
 void Librodigitale::setPagine(const unsigned int& m)
 {
     numeroPagine=m;
+}
+
+string Librodigitale::getTipo() const
+{
+    return "Libro digitale";
 }
 
 bool Librodigitale::operator==(const MediaItem& a) const

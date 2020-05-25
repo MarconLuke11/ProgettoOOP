@@ -18,6 +18,8 @@
 #include <QMenuBar>
 #include <regex>
 
+#include <QFileDialog>
+
 #include "modello/modello.h"
 #include "inserimento.h"
 #include "modifica.h"
@@ -41,7 +43,10 @@ private:
     Modello* modello;
     Inserimento* inserimento;
 
+    QString fileName;
+
     QLabel* img;
+    QLabel* tipoShow;
     QLabel* titoloShow;
     QLabel* genereShow;
     QLabel* annoDistribuzioneShow;
@@ -68,7 +73,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void load();
+    void loadBackup();
 
 public slots:
     void openInsert() const;
@@ -83,6 +88,8 @@ public slots:
     void textFilterChanged();
     void resetSearch();
     void save();
+    void saveAsData();
+    void loadFromFile();
     void about();
     void sviluppo();
     void ordineAlfa();

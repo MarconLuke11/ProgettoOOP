@@ -18,6 +18,7 @@ public:
 
     void setNarratore(const string&);
 
+    virtual string getTipo() const override;
 
     virtual bool operator==(const MediaItem&) const override;
     virtual bool operator!=(const MediaItem&) const override;

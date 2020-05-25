@@ -67,14 +67,27 @@ int Modello::sizeModello() const
     return media.size();
 }
 
-void Modello::saveToFile()
+/*void Modello::saveToFile()
 {
     xml xml("../Progetto-P2/data.xml");
     xml.write(media);
+}*/
+
+void Modello::saveToFile(const std::string& filename) {
+    xml xml(filename);
+    xml.write(media);
 }
 
-void Modello::loadFromFile() {
+/*void Modello::loadFromFile() {
     xml xml("../Progetto-P2/data.xml");
     media = xml.read();
+}*/
+
+void Modello::loadFromFile(const std::string& filename) {
+    xml xml(filename);
+    media = xml.read();
 }
+
+
+
 

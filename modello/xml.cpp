@@ -1,12 +1,12 @@
 #include "xml.h"
 
-xml::xml(QString filepath) : filename(filepath) {}
+xml::xml(const std::string& filepath) : filename(filepath) {}
 
 Container<MediaItem *> xml::read() const
 {
     Container<MediaItem*> list;
 
-    QFile file(filename);
+    QFile file(QString::fromStdString(filename));
     if(!file.open(QIODevice::ReadOnly)) {
         qWarning() << "Errore nell'apertura del file" << file.errorString();
         return  list;
@@ -201,7 +201,7 @@ Container<MediaItem *> xml::read() const
 
 void xml::write(Container<MediaItem *> & lista) const
 {
-    QSaveFile file(filename);
+    QSaveFile file(QString::fromStdString(filename));
     if(!file.open(QIODevice::WriteOnly)) {
         throw std::exception();
     }

@@ -10,6 +10,7 @@ Ricerca::Ricerca(QListWidget* v, Modello* m, QWidget *parent):QDialog(parent), v
     scelta->addItem("Audiolibro");
     scelta->addItem("Film");
     scelta->addItem("Musica");
+    scelta->addItem("Mostra tutto");
     scelta->setMinimumWidth(250);
     cerca->setMinimumWidth(150);
     QVBoxLayout* Layout = new QVBoxLayout(this);
@@ -18,13 +19,15 @@ Ricerca::Ricerca(QListWidget* v, Modello* m, QWidget *parent):QDialog(parent), v
     Layout->setAlignment(Qt::AlignCenter);
 
     connect(cerca,SIGNAL(clicked()),this,SLOT(ricercaPersonalizzata()));
-    for(int i = 0; i < lista->conta(); i++){
-         view->item(i)->setHidden(false);
-    }
 }
 
 void Ricerca::ricercaPersonalizzata()
 {
+
+    for(int i = 0; i < lista->conta(); i++){
+         view->item(i)->setHidden(false);
+    }
+
     if (scelta->currentIndex()==0){
         for(int i = 0; i < lista->conta(); i++){
             if(!dynamic_cast<Librodigitale*>((*(lista->getElement(i))))){
@@ -52,6 +55,10 @@ void Ricerca::ricercaPersonalizzata()
                 view->item(i)->setHidden(true);
             }
         }
+    }
+
+    if (scelta->currentIndex()==4){
+          //non deve fare nulla
     }
     close();
 }

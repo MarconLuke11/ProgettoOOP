@@ -39,6 +39,11 @@ void Film::setDurata(const unsigned int &d)
     durata=d;
 }
 
+string Film::getTipo() const
+{
+    return "Film";
+}
+
 bool Film::operator==(const MediaItem &a) const
 {
     return dynamic_cast<const Film*>(&a) && MediaItem::operator==(a) && regista==static_cast<const Film&>(a).regista

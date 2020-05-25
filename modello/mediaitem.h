@@ -23,6 +23,7 @@ public:
     virtual ~MediaItem() = default; //distruttore
     virtual string info() const; //per ottenere le informazioni dell'oggetto
     virtual unsigned int durataTOT() const=0; //per calcolare la durata
+    virtual string getTipo() const=0; //per ottenere il tipo dell'oggetto
 
     string getTitolo() const;
     string getGenere() const;

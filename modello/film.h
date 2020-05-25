@@ -19,6 +19,8 @@ public:
     void setRegista(const string&);
     void setDurata(const unsigned int&);
 
+    virtual string getTipo() const override;
+
     virtual bool operator==(const MediaItem&) const override;
     virtual bool operator!=(const MediaItem&) const override;
 };

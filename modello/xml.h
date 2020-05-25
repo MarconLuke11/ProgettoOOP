@@ -19,9 +19,9 @@
 class xml
 {
 private:
-    QString filename;
+    std::string filename;
 public:
-    xml(QString);
+    xml(const std::string&);
     Container<MediaItem*> read() const;
     void write(Container<MediaItem*>&) const;
 };

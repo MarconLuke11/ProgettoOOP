@@ -22,8 +22,8 @@ public:
     Container<MediaItem*>::iteratore getElement(int) const;
     void ordAlfa();
     int sizeModello() const;
-    void saveToFile();
-    void loadFromFile();
+    void saveToFile(const std::string&);
+    void loadFromFile(const std::string&);
     MediaItem* getItem(int);
 
 };
