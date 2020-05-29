@@ -54,7 +54,7 @@ Modifica::Modifica(Modello *m, int i, QListWidget* v, QWidget *parent) : QDialog
     autoreAL->setMaximumWidth(150);
     casaEditriceAL->setMaximumWidth(150);
     durataAL->setMaximumWidth(150);
-    durataAL->setMaximum(300);
+    durataAL->setMaximum(3000);
     //durataAL->setSuffix(" minuti");
     narratore->setMaximumWidth(150);
     regista->setMaximumWidth(150);

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--File di salvataggio dell'applicazione. Non modificare a mano.-->
 <root>
+    <MediaItem type="audiolibro">
+        <titolo>La coscienza di Zeno</titolo>
+        <genere>Letteratura e Narrativa</genere>
+        <annoDistribuzione>2012</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>4</recensione>
+        <autore>Italo Svevo</autore>
+        <casaEditrice>Classici Audible Studios</casaEditrice>
+        <durata>800</durata>
+        <narratore>Roberto Accornero</narratore>
+    </MediaItem>
     <MediaItem type="musica">
         <titolo>Delta</titolo>
         <genere>Indie Folk</genere>
@@ -69,6 +80,17 @@
         <regista>Jon M. Chu</regista>
         <durata>129</durata>
     </MediaItem>
+    <MediaItem type="audiolibro">
+        <titolo>Se vuoi puoi</titolo>
+        <genere>Economia</genere>
+        <annoDistribuzione>2016</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>3</recensione>
+        <autore>Roberto Cerè</autore>
+        <casaEditrice>Media &amp; Co.</casaEditrice>
+        <durata>320</durata>
+        <narratore>Luca Ward</narratore>
+    </MediaItem>
     <MediaItem type="film">
         <titolo>Quella casa nel bosco</titolo>
         <genere>Horror</genere>
@@ -87,5 +109,16 @@
         <autore>Eiichiro Oda</autore>
         <casaEditrice>Weekly Shonen Jump</casaEditrice>
         <numeroPagine>208</numeroPagine>
+    </MediaItem>
+    <MediaItem type="audiolibro">
+        <titolo>Se questo è un uomo</titolo>
+        <genere>Letteratura e Narrativa</genere>
+        <annoDistribuzione>2015</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>5</recensione>
+        <autore>Primo Levi</autore>
+        <casaEditrice>Emons Edizioni</casaEditrice>
+        <durata>360</durata>
+        <narratore>Roberto Saviano</narratore>
     </MediaItem>
 </root>

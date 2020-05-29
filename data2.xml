@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--File di salvataggio dell'applicazione. Non modificare a mano.-->
+<root>
+    <MediaItem type="audiolibro">
+        <titolo>Il pendolo di Foucault</titolo>
+        <genere>Letteratura e Narrativa</genere>
+        <annoDistribuzione>2017</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>4</recensione>
+        <autore>Umberto Eco</autore>
+        <casaEditrice>Emons Edizioni</casaEditrice>
+        <durata>1400</durata>
+        <narratore>Tommaso Ragno</narratore>
+    </MediaItem>
+    <MediaItem type="musica">
+        <titolo>Bad Guy</titolo>
+        <genere>Pop</genere>
+        <annoDistribuzione>2019</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>5</recensione>
+        <artista>Billie Eilish</artista>
+        <numeroTracce>1</numeroTracce>
+        <durata>3</durata>
+    </MediaItem>
+    <MediaItem type="musica">
+        <titolo>Someone You Loved</titolo>
+        <genere>Pop soul</genere>
+        <annoDistribuzione>2018</annoDistribuzione>
+        <formato>MP3</formato>
+        <recensione>3</recensione>
+        <artista>Lewis Capaldi</artista>
+        <numeroTracce>1</numeroTracce>
+        <durata>3</durata>
+    </MediaItem>
+    <MediaItem type="librodigitale">
+        <titolo>L'arte della guerra</titolo>
+        <genere>Letteratura e narrativa</genere>
+        <annoDistribuzione>2015</annoDistribuzione>
+        <formato>ebook</formato>
+        <recensione>5</recensione>
+        <autore>Sun Tzu</autore>
+        <casaEditrice>Mondadori</casaEditrice>
+        <numeroPagine>95</numeroPagine>
+    </MediaItem>
+    <MediaItem type="librodigitale">
+        <titolo>La ragazza della neve</titolo>
+        <genere>Letteratura e narrativa</genere>
+        <annoDistribuzione>2015</annoDistribuzione>
+        <formato>ebook</formato>
+        <recensione>3</recensione>
+        <autore>Pam Jenoff</autore>
+        <casaEditrice>Feltrinelli</casaEditrice>
+        <numeroPagine>152</numeroPagine>
+    </MediaItem>
+    <MediaItem type="film">
+        <titolo>The Grudge</titolo>
+        <genere>Horror</genere>
+        <annoDistribuzione>2020</annoDistribuzione>
+        <formato>DVD</formato>
+        <recensione>1</recensione>
+        <regista>Nicolas Pesce</regista>
+        <durata>94</durata>
+    </MediaItem>
+</root>
