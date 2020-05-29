@@ -94,7 +94,6 @@ public slots:
     void sviluppo();
     void ordineAlfa();
     void salvato();
-    //void display();
 };
 
 #endif // MAINWINDOW_H

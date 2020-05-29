@@ -13,7 +13,7 @@ searchBar (new QLineEdit (this))
     setFixedSize(QSize(750,750));
     setMinimumSize(720,400);
     setMaximumSize(1200,1000);
-    setWindowIcon(QIcon("../Progetto-P2/img/App.png"));
+    setWindowIcon(QIcon("../ProgettoOOP/img/App.png"));
     vista->setFixedWidth(300);
 
     loadBackup();
@@ -24,7 +24,7 @@ searchBar (new QLineEdit (this))
     QPushButton* modifyButton = new QPushButton("Modifica", this);
     QPushButton* searchButton = new QPushButton ("Cerca...",this);
     QPushButton* preferitiButton = new QPushButton ("Mostra solo preferiti",this);
-    preferitiButton->setIcon(QPixmap::fromImage(QImage("../Progetto-P2/img/Preferiti.png")));
+    preferitiButton->setIcon(QPixmap::fromImage(QImage("../ProgettoOOP/img/Preferiti.png")));
     preferitiButton->setIconSize(QSize(32,32));
     QPushButton* durataButton = new QPushButton ("Calcola il tuo intrattenimento totale",this);
     QPushButton* ordineAlfa = new QPushButton ("Ordine alfabetico",this);
@@ -176,8 +176,6 @@ searchBar (new QLineEdit (this))
     mainLayout->addLayout(fourthLayout);
     fourthLayout->addLayout(buttons);
 
-    QString s="proviamo";
-
     connect(addButton,SIGNAL(clicked()),this,SLOT(openInsert()));
     connect(removeButton,SIGNAL(clicked()),this,SLOT(removeItem()));
     connect(clearButton, SIGNAL(clicked()),this,SLOT(removeAllItem()));
@@ -185,7 +183,7 @@ searchBar (new QLineEdit (this))
     connect(durataButton,SIGNAL(clicked()),this,SLOT(openDurata()));
     connect(inserimento,SIGNAL(inserisciClicked()), this, SLOT(addItem()));
     connect(vista,SIGNAL(itemSelectionChanged()),this,SLOT(showLabel()));
-    //connect(searchButton,SIGNAL(clicked()), this, SLOT(textFilterChanged()));
+    connect(searchButton,SIGNAL(clicked()), this, SLOT(textFilterChanged()));
     connect(searchBar,SIGNAL(returnPressed()), this, SLOT(textFilterChanged()));
     connect(searchBar,SIGNAL(textChanged(const QString &)), this, SLOT(textFilterChanged()));
     connect(search2Button,SIGNAL(clicked()), this, SLOT(openSearch()));
@@ -209,7 +207,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadBackup()
 {
-    fileName="../Progetto-P2/data.xml";
+    fileName="../ProgettoOOP/data.xml";
     setWindowTitle("Media Qllection - " + QFileInfo(fileName).fileName());
     modello->loadFromFile(fileName.toStdString());
 
@@ -219,16 +217,16 @@ void MainWindow::loadBackup()
     while(it != modello->end()){
         QIcon icona;
         if (dynamic_cast<Librodigitale*>(*(it))){
-            icona= QIcon("../Progetto-P2/img/libro1.png");
+            icona= QIcon("../ProgettoOOP/img/libro1.png");
         }
         if (dynamic_cast<Audiolibro*>(*(it))){
-            icona= QIcon("../Progetto-P2/img/audiobook1.png");
+            icona= QIcon("../ProgettoOOP/img/audiobook1.png");
         }
         if (dynamic_cast<Film*>(*(it))){
-            icona= QIcon("../Progetto-P2/img/film1.png");
+            icona= QIcon("../ProgettoOOP/img/film1.png");
         }
         if (dynamic_cast<Musica*>(*(it))){
-            icona= QIcon("../Progetto-P2/img/musica1.png");
+            icona= QIcon("../ProgettoOOP/img/musica1.png");
         }
         QString a = QString::fromStdString((*(modello->getElement(cont)))->getTitolo());
         QListWidgetItem* listitem = new QListWidgetItem(a,vista);
@@ -307,25 +305,25 @@ void MainWindow::addItem() {
                 Librodigitale* item = new Librodigitale(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getAutoreLD(),inserimento->getCasaEditriceLD(),inserimento->getPagine() );
                 modello->aggiungi(item);
-                icona= QIcon("../Progetto-P2/img/libro1.png");
+                icona= QIcon("../ProgettoOOP/img/libro1.png");
         }
         if (inserimento->getScelta()=="Audiolibro"){
                 Audiolibro* item = new Audiolibro(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getAutoreAL(),inserimento->getCasaEditriceAL(),inserimento->getDurataAL(),inserimento->getNarratore() );
                 modello->aggiungi(item);
-                icona= QIcon("../Progetto-P2/img/audiobook1.png");
+                icona= QIcon("../ProgettoOOP/img/audiobook1.png");
         }
         if (inserimento->getScelta()=="Film"){
                 Film* item = new Film(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                       inserimento->getRegista(),inserimento->getDurataFilm());
                 modello->aggiungi(item);
-                icona= QIcon("../Progetto-P2/img/film1.png");
+                icona= QIcon("../ProgettoOOP/img/film1.png");
         }
         if (inserimento->getScelta()=="Musica"){
                 Musica* item = new Musica(inserimento->getTitolo(),inserimento->getGenere(),inserimento->getAnno(),inserimento->getFormato(),inserimento->getRecensione(),
                                           inserimento->getDurataMusica(), inserimento->getArtista(),inserimento->getNumeroTracce() );
                 modello->aggiungi(item);
-                icona= QIcon("../Progetto-P2/img/musica1.png");
+                icona= QIcon("../ProgettoOOP/img/musica1.png");
         }
         QString a = QString::fromStdString((*(modello->getElement(modello->conta()-1)))->getTitolo());
         QListWidgetItem* listitem = new QListWidgetItem(a,vista);
@@ -358,23 +356,23 @@ void MainWindow::showLabel()
         formatoShow->setText(QString::fromUtf8("Formato: ") + QString::fromStdString((*(selected))->getFormato()));
         recensioneShow->setText("");
         if ((*(selected))->getRecensione()==1){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore1.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore1.png")));
         }
         if ((*(selected))->getRecensione()==2){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore2.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore2.png")));
         }
         if ((*(selected))->getRecensione()==3){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore3.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore3.png")));
         }
         if ((*(selected))->getRecensione()==4){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore4.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore4.png")));
         }
         if ((*(selected))->getRecensione()==5){
-            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/cuore5.png")));
+            recensioneShow->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/cuore5.png")));
         }
 
         if (dynamic_cast<Librodigitale*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/libro2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/libro2.png")));
             auto cast=dynamic_cast<Librodigitale*>(*selected);
             autoreLDShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
             casaEditriceLDShow->setText(QString::fromUtf8("Casa editrice: ") + QString::fromStdString((cast)->getCasaEditrice()));
@@ -390,7 +388,7 @@ void MainWindow::showLabel()
         }
 
         if (dynamic_cast<Audiolibro*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/audiobook2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/audiobook2.png")));
             auto cast=dynamic_cast<Audiolibro*>(*selected);
 
             autoreALShow->setText(QString::fromUtf8("Autore: ") + QString::fromStdString((cast)->getAutore()));
@@ -410,7 +408,7 @@ void MainWindow::showLabel()
         }
 
         if (dynamic_cast<Film*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/film2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/film2.png")));
             auto cast=dynamic_cast<Film*>(*selected);
             registaShow->setText("Regista: " + QString::fromStdString((cast)->getRegista()));
             durataFilmShow->setText("Durata: " + QString::number((cast)->getDurata()) + QString::fromUtf8(" minuti"));
@@ -423,7 +421,7 @@ void MainWindow::showLabel()
         }
 
         if (dynamic_cast<Musica*>(*selected)){
-            img->setPixmap(QPixmap::fromImage(QImage("../Progetto-P2/img/musica2.png")));
+            img->setPixmap(QPixmap::fromImage(QImage("../ProgettoOOP/img/musica2.png")));
             auto cast=dynamic_cast<Musica*>(*selected);
 
             artistaShow->setText("Artista: " + QString::fromStdString((cast)->getArtista()));
@@ -572,16 +570,16 @@ void MainWindow::loadFromFile(){
         while(it != modello->end()){
             QIcon icona;
             if (dynamic_cast<Librodigitale*>(*(it))){
-                icona= QIcon("../Progetto-P2/img/libro1.png");
+                icona= QIcon("../ProgettoOOP/img/libro1.png");
             }
             if (dynamic_cast<Audiolibro*>(*(it))){
-                icona= QIcon("../Progetto-P2/img/audiobook1.png");
+                icona= QIcon("../ProgettoOOP/img/audiobook1.png");
             }
             if (dynamic_cast<Film*>(*(it))){
-                icona= QIcon("../Progetto-P2/img/film1.png");
+                icona= QIcon("../ProgettoOOP/img/film1.png");
             }
             if (dynamic_cast<Musica*>(*(it))){
-                icona= QIcon("../Progetto-P2/img/musica1.png");
+                icona= QIcon("../ProgettoOOP/img/musica1.png");
             }
             QString a = QString::fromStdString((*(modello->getElement(cont)))->getTitolo());
             QListWidgetItem* listitem = new QListWidgetItem(a,vista);
