@@ -3,6 +3,9 @@
 Sviluppo::Sviluppo(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle(tr("Development info"));
+    setFixedSize(QSize(294,172));
+    setMinimumSize(250,100);
+    setMaximumSize(800,700);
     QLabel* sviluppo = new QLabel("Sviluppato con:\n"
                                 "Sistema operativo: Windows 10\n"
                                 "Versione Libreria Qt: 5.9.5\n"
