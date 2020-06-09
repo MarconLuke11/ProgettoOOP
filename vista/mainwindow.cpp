@@ -10,7 +10,7 @@ artistaShow(new QLabel ("",this)), numeroTracceShow(new QLabel ("",this)), durat
 searchBar (new QLineEdit (this))
 {
     setWindowTitle(tr("Media Qllection"));
-    setFixedSize(QSize(750,650));
+    setFixedSize(QSize(750,690));
     setMinimumSize(720,400);
     setMaximumSize(1200,1000);
     setWindowIcon(QIcon("../ProgettoOOP/img/App.png"));

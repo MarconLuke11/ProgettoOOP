@@ -3,7 +3,7 @@
 Sviluppo::Sviluppo(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle(tr("Development info"));
-    setFixedSize(QSize(294,172));
+    setFixedSize(QSize(300,180));
     setMinimumSize(250,100);
     setMaximumSize(800,700);
     QLabel* sviluppo = new QLabel("Sviluppato con:\n"

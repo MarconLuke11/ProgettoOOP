@@ -3,7 +3,7 @@
 About::About(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle(tr("About"));
-    setFixedSize(QSize(281,150));
+    setFixedSize(QSize(290,150));
     setMinimumSize(250,100);
     setMaximumSize(800,700);
     QLabel* autore = new QLabel("Autore: Luca Marcon\n"
